@@ -32,8 +32,13 @@ Production-ready 4-week (12-post, 65-graphic) bilingual Instagram educational ca
 
 ```text
 instagram-series/
+├── .github/workflows/
+│   └── auto-post-instagram.yml                    # Scheduled & manual GitHub Actions Instagram publisher
 ├── assets/
 │   └── srpa-logo.png                              # Official SikhRPA crest (from Sikhrpa/sikhrpa)
+├── media/
+│   ├── jpg/                                       # 65 Instagram-Graph-API-ready sRGB JPEGs
+│   └── reels/                                     # 2 compiled 1080×1920 H.264/AAC MP4 Reels (Posts 03 & 07)
 ├── posts/
 │   ├── post-01-meet-sikhrpa-givingtuesday/        # 6 PNGs (4:5) + caption.txt
 │   ├── post-02-four-universal-safety-rules/       # 6 PNGs (4:5) + caption.txt
@@ -52,11 +57,26 @@ instagram-series/
 │   ├── diagrams.py                                # Inline SVG generators (REAL ID, DROS, Clock Dial, TQ, Optics)
 │   ├── content_posts_1_to_6.py                    # Slides, captions, hashtags & Story prompts (Posts 01–06)
 │   ├── content_posts_7_to_12.py                   # Slides, captions, hashtags & Story prompts (Posts 07–12)
-│   └── generate_all.py                            # Master Playwright renderer + policy/overflow validator
+│   ├── generate_all.py                            # Master Playwright renderer + policy/overflow validator
+│   ├── build_publish_media.py                     # Converts PNGs -> JPEGs, compiles MP4 Reels & builds manifest
+│   └── auto_post.py                               # Zero-dependency Instagram Graph API auto-poster
+├── AUTO_POST_SETUP.md                             # 5-minute setup guide for GitHub Actions & Meta Graph API
+├── publish_manifest.json                          # Structured schedule + public HTTPS media URLs
+├── publish_state.json                             # Idempotent publish tracker (prevents duplicate posts)
 ├── index.html                                     # Interactive web gallery (GitHub Pages ready)
-├── schedule.csv                                   # Import-ready schedule for Meta Business Suite / Buffer / Later
+├── schedule.csv                                   # Import-ready schedule with public HTTPS URLs
 └── README.md
 ```
+
+---
+
+## Automated Posting (Instagram Graph API + GitHub Actions)
+
+All 12 posts — including **Carousels**, compiled **1080×1920 MP4 Reels** (Posts 03 & 07), **Single Posts**, and **Companion 9:16 Stories** — can publish automatically on schedule via **GitHub Actions** with zero third-party hosting costs:
+
+1. Add two GitHub Repository Secrets (`IG_USER_ID` and `IG_ACCESS_TOKEN`) — see the 5-minute walkthrough in **[AUTO_POST_SETUP.md](AUTO_POST_SETUP.md)**.
+2. Test in **Actions → Auto-Post SikhRPA Instagram Series → Run workflow** using `verify_token` and `dry_run`.
+3. The scheduled workflow automatically publishes each pending post when its PST timestamp arrives and commits the returned Instagram Media ID to `publish_state.json` so no post is ever duplicated.
 
 ---
 
@@ -84,18 +104,21 @@ Every graphic, caption, hashtag block, and Story prompt is programmatically audi
 
 ## Reproducing or Editing the Series
 
-All copy, diagrams, schedules, and gallery HTML are generated reproducibly from `scripts/`:
+All copy, diagrams, publish media, schedules, and gallery HTML are generated reproducibly from `scripts/`:
 
 ```bash
-# 1. Install English & Gurmukhi system fonts (Ubuntu / Debian)
-sudo apt-get update && sudo apt-get install -y fonts-inter fonts-noto-core fonts-noto-ui-core
+# 1. Install English & Gurmukhi system fonts + ffmpeg (Ubuntu / Debian)
+sudo apt-get update && sudo apt-get install -y fonts-inter fonts-noto-core fonts-noto-ui-core ffmpeg
 
-# 2. Install Playwright (uses system Chrome if present, or run `playwright install chromium`)
-pip install playwright
+# 2. Install Playwright & Pillow
+pip install playwright pillow
 
 # 3. Edit copy in scripts/content_posts_1_to_6.py or scripts/content_posts_7_to_12.py
-# 4. Re-render all 65 PNGs, caption.txt files, schedule.csv, and index.html
+# 4. Re-render all 65 PNGs, caption.txt files, and index.html
 python3 scripts/generate_all.py
+
+# 5. Rebuild Instagram Graph API JPEGs, MP4 Reels, publish_manifest.json & schedule.csv
+python3 scripts/build_publish_media.py
 ```
 
 The generator automatically runs:

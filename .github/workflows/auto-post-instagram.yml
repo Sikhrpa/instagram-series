@@ -1,0 +1,118 @@
+name: Auto-Post SikhRPA Instagram Series
+
+on:
+  schedule:
+    # Runs every 30 minutes during December (UTC) to catch every Tue / Thu / Sat PST slot reliably
+    # Exits in ~2 seconds when no post is due, and never double-posts (tracked via publish_state.json)
+    - cron: "*/30 * * 12 *"
+
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Action to run"
+        required: true
+        default: "dry_run"
+        type: choice
+        options:
+          - check_due
+          - single_post
+          - dry_run
+          - verify_token
+          - status
+      post_number:
+        description: "Post number (01-12) — required for single_post, optional for dry_run"
+        required: false
+        default: ""
+        type: string
+      publish_stories:
+        description: "Also auto-publish companion 9:16 Stories (Posts 06, 11, 12)"
+        required: false
+        default: true
+        type: boolean
+      force:
+        description: "Force re-publish even if already marked published in publish_state.json"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-auto-post
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run SikhRPA Instagram Auto-Poster
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_API_BASE: ${{ vars.IG_API_BASE || 'https://graph.facebook.com' }}
+          IG_API_VERSION: ${{ vars.IG_API_VERSION || 'v21.0' }}
+        run: |
+          set -euo pipefail
+          MODE="${{ github.event_name == 'schedule' && 'check_due' || inputs.mode }}"
+          POST_NUM="${{ inputs.post_number }}"
+          STORIES_FLAG=""
+          if [[ "${{ github.event_name == 'schedule' || inputs.publish_stories == true }}" == "true" ]]; then
+            STORIES_FLAG="--publish-stories"
+          fi
+          FORCE_FLAG=""
+          if [[ "${{ inputs.force }}" == "true" ]]; then
+            FORCE_FLAG="--force"
+          fi
+
+          case "$MODE" in
+            status)
+              python3 scripts/auto_post.py --status
+              ;;
+            verify_token)
+              python3 scripts/auto_post.py --verify-token
+              ;;
+            dry_run)
+              if [[ -n "$POST_NUM" ]]; then
+                python3 scripts/auto_post.py --dry-run --post "$POST_NUM" $STORIES_FLAG
+              else
+                python3 scripts/auto_post.py --dry-run $STORIES_FLAG
+              fi
+              ;;
+            single_post)
+              if [[ -z "$POST_NUM" ]]; then
+                echo "Error: post_number (01-12) is required when mode=single_post"
+                exit 1
+              fi
+              python3 scripts/auto_post.py --post "$POST_NUM" $STORIES_FLAG $FORCE_FLAG
+              ;;
+            check_due)
+              python3 scripts/auto_post.py --check-due $STORIES_FLAG
+              ;;
+            *)
+              echo "Unknown mode: $MODE"
+              exit 1
+              ;;
+          esac
+
+      - name: Commit updated publish_state.json
+        run: |
+          if git diff --quiet publish_state.json; then
+            echo "No publish_state.json changes to commit."
+            exit 0
+          fi
+          git config user.name "sikhrpa-autoposter[bot]"
+          git config user.email "president@sikhrpa.org"
+          git add publish_state.json
+          git commit -m "Update publish_state.json after Instagram auto-post"
+          git push origin HEAD:main

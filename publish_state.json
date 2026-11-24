@@ -1,0 +1,98 @@
+{
+  "post-01": {
+    "slug": "post-01-meet-sikhrpa-givingtuesday",
+    "scheduled_at_iso": "2026-12-01T11:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "post-02": {
+    "slug": "post-02-four-universal-safety-rules",
+    "scheduled_at_iso": "2026-12-03T17:30:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "post-03": {
+    "slug": "post-03-ca-fsc-practice-exam-reel",
+    "scheduled_at_iso": "2026-12-05T10:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "post-04": {
+    "slug": "post-04-ca-first-time-buyer-roadmap",
+    "scheduled_at_iso": "2026-12-08T12:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "post-05": {
+    "slug": "post-05-holiday-safe-storage-pc25100",
+    "scheduled_at_iso": "2026-12-10T18:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "post-06": {
+    "slug": "post-06-daily-legal-regulatory-watch",
+    "scheduled_at_iso": "2026-12-12T10:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "post-07": {
+    "slug": "post-07-pistol-shot-diagnostic-reel",
+    "scheduled_at_iso": "2026-12-15T12:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "post-08": {
+    "slug": "post-08-bilingual-range-trauma-stop-the-bleed",
+    "scheduled_at_iso": "2026-12-17T17:30:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "post-09": {
+    "slug": "post-09-how-to-zero-optics",
+    "scheduled_at_iso": "2026-12-19T10:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "post-10": {
+    "slug": "post-10-miri-piri-shaheedi-week",
+    "scheduled_at_iso": "2026-12-22T12:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "post-11": {
+    "slug": "post-11-host-2027-gurdwara-workshop",
+    "scheduled_at_iso": "2026-12-24T16:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "post-12": {
+    "slug": "post-12-year-end-501c3-giving-appeal",
+    "scheduled_at_iso": "2026-12-26T10:30:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  }
+}
