@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SikhRPA 4-Week Instagram Content Series Gallery | Dec 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Gurmukhi:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy-950: #090e1a;
+      --navy-900: #0f172a;
+      --navy-800: #16223a;
+      --navy-700: #1e293b;
+      --blue-900: #1e3a8a;
+      --gold-600: #d97706;
+      --gold-500: #f59e0b;
+      --gold-400: #fbbf24;
+      --slate-50: #f8fafc;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --emerald: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        radial-gradient(ellipse 80% 45% at 85% 0%, rgba(30,58,138,0.35), transparent 65%),
+        radial-gradient(ellipse 65% 40% at 10% 100%, rgba(217,119,6,0.14), transparent 60%),
+        var(--navy-900);
+      color: var(--slate-50);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    .pa { font-family: 'Noto Sans Gurmukhi', sans-serif; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    header.hero {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: rgba(9, 14, 26, 0.72);
+      backdrop-filter: blur(12px);
+      padding: 36px 0 32px;
+    }
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .brand img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 2.5px solid var(--gold-500);
+      background: var(--navy-950);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+    }
+    .brand h1 {
+      font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .brand h1 span { color: var(--gold-400); }
+    .brand p { color: var(--slate-300); font-size: 0.95rem; margin-top: 3px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(30, 41, 59, 0.85);
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.16s ease;
+    }
+    .btn:hover { transform: translateY(-1px); border-color: var(--gold-500); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-600), var(--gold-500));
+      color: var(--navy-950);
+      border-color: var(--gold-400);
+    }
+    .btn-blue {
+      background: linear-gradient(135deg, var(--blue-900), #2563eb);
+      border-color: rgba(96,165,250,0.45);
+    }
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .stat {
+      background: rgba(22, 34, 58, 0.72);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      padding: 14px 18px;
+    }
+    .stat strong { display: block; font-size: 1.35rem; color: var(--gold-400); font-weight: 900; }
+    .stat span { font-size: 0.78rem; color: var(--slate-400); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 28px 0 22px;
+    }
+    .filter-group { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(22, 34, 58, 0.75);
+      color: var(--slate-300);
+      font-size: 0.83rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip.active, .chip:hover {
+      background: rgba(217,119,6,0.22);
+      border-color: var(--gold-500);
+      color: #fef3c7;
+    }
+    .search-input {
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      padding: 9px 16px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      min-width: 240px;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--gold-500); }
+
+    .posts-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding-bottom: 64px;
+    }
+    .post-card {
+      background: rgba(22, 34, 58, 0.78);
+      border: 1px solid rgba(255,255,255,0.11);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.28);
+    }
+    .post-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 20px 26px;
+      background: rgba(9, 14, 26, 0.55);
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+    }
+    .post-title-wrap { display: flex; align-items: center; gap: 14px; }
+    .post-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--gold-600), var(--gold-500));
+      color: var(--navy-950);
+      font-weight: 900;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .post-title-wrap h2 { font-size: 1.15rem; font-weight: 800; color: #fff; }
+    .post-meta { font-size: 0.84rem; color: var(--slate-300); margin-top: 2px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; }
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(30,58,138,0.55);
+      border: 1px solid rgba(96,165,250,0.38);
+      color: #dbeafe;
+    }
+    .badge-gold {
+      background: rgba(217,119,6,0.2);
+      border-color: rgba(245,158,11,0.5);
+      color: #fde68a;
+    }
+
+    .post-content {
+      display: grid;
+      grid-template-columns: minmax(300px, 430px) 1fr;
+      gap: 26px;
+      padding: 24px 26px;
+    }
+    @media (max-width: 920px) {
+      .post-content { grid-template-columns: 1fr; }
+    }
+
+    /* Carousel Stage */
+    .stage-wrap { display: flex; flex-direction: column; gap: 12px; }
+    .stage {
+      position: relative;
+      background: var(--navy-950);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+      max-height: 540px;
+    }
+    .stage img {
+      max-width: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      display: block;
+      cursor: zoom-in;
+    }
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .nav-btn:hover { background: var(--gold-600); color: var(--navy-950); }
+    .nav-prev { left: 10px; }
+    .nav-next { right: 10px; }
+    .slide-pill {
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+      background: rgba(9, 14, 26, 0.86);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #fef3c7;
+    }
+    .thumbs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .thumb {
+      width: 58px;
+      height: 72px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 2px solid transparent;
+      cursor: pointer;
+      opacity: 0.65;
+      flex-shrink: 0;
+      background: var(--navy-950);
+    }
+    .thumb.active {
+      border-color: var(--gold-500);
+      opacity: 1;
+    }
+
+    /* Copy panel */
+    .copy-panel { display: flex; flex-direction: column; gap: 14px; }
+    .copy-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+    .box-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold-400);
+      margin-bottom: 6px;
+    }
+    .caption-box {
+      background: rgba(9, 14, 26, 0.72);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 0.89rem;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      max-height: 255px;
+      overflow-y: auto;
+      font-family: 'Inter', 'Noto Sans Gurmukhi', sans-serif;
+    }
+    .hashtag-box {
+      background: rgba(30, 58, 138, 0.28);
+      border: 1px solid rgba(96,165,250,0.28);
+      border-radius: 12px;
+      padding: 11px 15px;
+      font-size: 0.84rem;
+      color: #bfdbfe;
+      font-weight: 600;
+      word-break: break-word;
+    }
+    .story-box {
+      background: rgba(217, 119, 6, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.34);
+      border-radius: 12px;
+      padding: 12px 15px;
+      font-size: 0.85rem;
+      color: #fef3c7;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 16, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    }
+    .lb-close {
+      position: fixed;
+      top: 18px;
+      right: 24px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 1.4rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .lb-caption {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15,23,42,0.92);
+      border: 1px solid rgba(245,158,11,0.45);
+      color: #fef3c7;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--emerald);
+      color: #052e16;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    footer.site-footer {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 28px 0 42px;
+      text-align: center;
+      color: var(--slate-400);
+      font-size: 0.86rem;
+    }
+    footer.site-footer a { color: var(--gold-400); text-decoration: none; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <div class="hero-top">
+        <div class="brand">
+          <img src="assets/srpa-logo.png" alt="SikhRPA Official Logo" />
+          <div>
+            <h1>SikhRPA <span>Instagram Content Series</span></h1>
+            <p>4-Week Educational &amp; Safe Storage Campaign • Dec 1 – Dec 26, 2026 (Tue / Thu / Sat • PST)</p>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="schedule.csv" download>⬇ Download schedule.csv</a>
+          <a class="btn btn-blue" href="https://sikhrpa.org" target="_blank" rel="noopener">🌐 sikhrpa.org</a>
+          <a class="btn" href="https://github.com/Sikhrpa/instagram-series" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat"><strong>12 Posts</strong><span>4 Weeks • Tue / Thu / Sat</span></div>
+        <div class="stat"><strong>65 PNGs</strong><span>1080×1350 (4:5) &amp; 1080×1920 (9:16)</span></div>
+        <div class="stat"><strong>EN + ਪੰਜਾਬੀ</strong><span>Inter &amp; Noto Sans Gurmukhi</span></div>
+        <div class="stat"><strong>501(c)(3)</strong><span>EIN 42-2595402 • Policy Compliant</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="controls">
+      <div class="filter-group" id="weekFilters">
+        <button class="chip active" data-week="all">All 4 Weeks</button>
+        <button class="chip" data-week="1">Week 1 (Dec 1–5)</button>
+        <button class="chip" data-week="2">Week 2 (Dec 8–12)</button>
+        <button class="chip" data-week="3">Week 3 (Dec 15–19)</button>
+        <button class="chip" data-week="4">Week 4 (Dec 22–26)</button>
+      </div>
+      <div class="filter-group" id="formatFilters">
+        <button class="chip active" data-fmt="all">All Formats</button>
+        <button class="chip" data-fmt="carousel">Carousels</button>
+        <button class="chip" data-fmt="reel">Reels</button>
+        <button class="chip" data-fmt="single">Single + Story</button>
+      </div>
+      <input class="search-input" id="searchInput" type="search" placeholder="Search topic, statute, hashtag..." />
+    </div>
+
+    <section class="posts-grid" id="postsGrid"></section>
+  </main>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lb-close" onclick="closeLightbox(event)" aria-label="Close">×</button>
+    <img id="lbImg" src="" alt="Full resolution preview" />
+    <div class="lb-caption" id="lbCaption"></div>
+  </div>
+
+  <div class="toast" id="toast">Copied to clipboard!</div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="pa" style="color:#fde68a;font-size:1.05rem;font-weight:700;margin-bottom:6px;">
+        ਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!
+      </div>
+      <div>
+        Sikh Rifle and Pistol Association (SikhRPA) • IRS-Recognized California 501(c)(3) Nonprofit Public Benefit Corporation • Federal EIN: 42-2595402
+      </div>
+      <div style="margin-top:6px;">
+        <a href="https://sikhrpa.org">sikhrpa.org</a> • <a href="mailto:president@sikhrpa.org">president@sikhrpa.org</a> • Strictly Educational &amp; Meta Policy Compliant
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const POSTS = [{"number": 1, "slug": "post-01-meet-sikhrpa-givingtuesday", "week": 1, "date_display": "Tue, Dec 1, 2026 (GivingTuesday)", "time_pst": "11:00 AM PST", "format": "Carousel (6 slides, 4:5)", "format_type": "carousel", "title": "Meet SikhRPA — 501(c)(3) Safety Education & GivingTuesday", "url": "https://sikhrpa.org/donate.html", "caption": "Meet the Sikh Rifle and Pistol Association (SikhRPA) — an IRS-recognized California 501(c)(3) nonprofit public benefit corporation dedicated to firearm safety education, safe home storage, statutory compliance, and emergency trauma readiness.\n\nEverything we publish at sikhrpa.org is 100% free and accessible in both English and Gurmukhi:\n• Free 30-Question CA Firearm Safety Certificate (FSC) Practice Exam\n• California First-Time Compliance Roadmap (REAL ID, Proof of Residency & DROS)\n• Bilingual Range Trauma & Stop the Bleed First-Aid Guide\n• Interactive Pistol Shot Diagnostic & Optics Zeroing Calculators\n• Daily California Legal & Regulatory Watch Archive\n• Free Gurdwara Safe Storage Workshops & CA DOJ-Approved Cable Locks\n\nThis #GivingTuesday, every tax-deductible contribution directly funds printed bilingual safety guides, free CA DOJ-approved cable locks for families, and community safety clinics across California.\n\n• $20 = 1 CA DOJ-approved cable safety lock for a local family\n• $50 = 100 pocket-sized English & Gurmukhi safety manuals\n• $150 = Certified eye & ear protection kits for 10 beginner students\n• $1,000 = Sponsors a full bilingual Gurdwara safety workshop\n\nSupport public safety education at sikhrpa.org/donate.html (Link in bio)\nZelle (0% fees): sikhrpa | Federal EIN: 42-2595402 | president@sikhrpa.org\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #GivingTuesday #FirearmSafetyEducation #SafeStorage #PublicSafetyEducation #Nonprofit501c3 #SikhCommunity #CaliforniaSikhs #PunjabiCommunity #BilingualEducation #GurdwaraOutreach #StaySafeBeResponsible", "story_prompt": "Repost Slide 1 to your Story with a 'Link' sticker pointing to https://sikhrpa.org/donate.html and a Poll sticker: 'Have you explored SikhRPA's free bilingual safety tools?' (Options: 'Yes — super helpful!' / 'Checking them out now!').", "slides": [{"filename": "slide-01-cover.png", "path": "posts/post-01-meet-sikhrpa-givingtuesday/slide-01-cover.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-02-mission.png", "path": "posts/post-01-meet-sikhrpa-givingtuesday/slide-02-mission.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-03-free-tools.png", "path": "posts/post-01-meet-sikhrpa-givingtuesday/slide-03-free-tools.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-04-bilingual-outreach.png", "path": "posts/post-01-meet-sikhrpa-givingtuesday/slide-04-bilingual-outreach.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-05-givingtuesday-impact.png", "path": "posts/post-01-meet-sikhrpa-givingtuesday/slide-05-givingtuesday-impact.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-06-cta.png", "path": "posts/post-01-meet-sikhrpa-givingtuesday/slide-06-cta.png", "width": 1080, "height": 1350, "aspect": "4:5"}]}, {"number": 2, "slug": "post-02-four-universal-safety-rules", "week": 1, "date_display": "Thu, Dec 3, 2026", "time_pst": "5:30 PM PST", "format": "Carousel (6 slides, 4:5)", "format_type": "carousel", "title": "The 4 Universal Firearm Safety Rules (English & Gurmukhi)", "url": "https://sikhrpa.org/", "caption": "Safe firearm handling rests on four universal rules — zero exceptions, every single time.\n\nSave and share this bilingual English & Gurmukhi reference card with family members, first-time learners, and anyone preparing for the California Firearm Safety Certificate (FSC) exam:\n\n1. Always treat every firearm as loaded.\n   ਹਮੇਸ਼ਾ ਇਹ ਮੰਨ ਕੇ ਚੱਲੋ ਕਿ ਹਥਿਆਰ ਲੋਡ ਹੈ।\n2. Never point at anything you do not wish to destroy.\n   ਬੈਰਲ ਦਾ ਮੂੰਹ ਹਮੇਸ਼ਾ ਸੁਰੱਖਿਅਤ ਦਿਸ਼ਾ ਵੱਲ ਰੱਖੋ।\n3. Keep your finger off the trigger until ready to shoot.\n   ਟਰਿੱਗਰ 'ਤੇ ਉਂਗਲ ਉਦੋਂ ਹੀ ਰੱਖੋ ਜਦੋਂ ਨਿਸ਼ਾਨਾ ਪੂਰਾ ਹੋਵੇ।\n4. Know your target and what is beyond it.\n   ਆਪਣੇ ਨਿਸ਼ਾਨੇ ਅਤੇ ਉਸਦੇ ਪਿੱਛੇ ਦੀ ਜਗ੍ਹਾ ਦਾ ਧਿਆਨ ਰੱਖੋ।\n\nDownload free printable English & Gurmukhi safety handouts anytime at sikhrpa.org (Link in bio).\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #FirearmSafetyRules #FirearmSafetyEducation #BilingualSafety #Gurmukhi #PunjabiCommunity #SikhCommunity #RangeSafety #SafeHandling #CaliforniaCompliance #PublicSafetyEducation #StaySafeBeResponsible", "story_prompt": "Share Slide 6 (the all-in-one bilingual quick reference card) to your Story with the text: 'Screenshot & save this bilingual 4 Rules card for your range bag or family!' Add a Quiz sticker testing Rule #1 ('If a magazine is removed, is the firearm empty?' → 'No — always visually check the chamber!').", "slides": [{"filename": "slide-01-cover.png", "path": "posts/post-02-four-universal-safety-rules/slide-01-cover.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-02-rule-1.png", "path": "posts/post-02-four-universal-safety-rules/slide-02-rule-1.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-03-rule-2.png", "path": "posts/post-02-four-universal-safety-rules/slide-03-rule-2.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-04-rule-3.png", "path": "posts/post-02-four-universal-safety-rules/slide-04-rule-3.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-05-rule-4.png", "path": "posts/post-02-four-universal-safety-rules/slide-05-rule-4.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-06-summary-cta.png", "path": "posts/post-02-four-universal-safety-rules/slide-06-summary-cta.png", "width": 1080, "height": 1350, "aspect": "4:5"}]}, {"number": 3, "slug": "post-03-ca-fsc-practice-exam-reel", "week": 1, "date_display": "Sat, Dec 5, 2026", "time_pst": "10:00 AM PST", "format": "Reel (9:16 Cover + 5 Storyboard Frames)", "format_type": "reel", "title": "Free 30-Question CA FSC Practice Exam (sikhrpa.org/fsc-quiz.html)", "url": "https://sikhrpa.org/fsc-quiz.html", "caption": "Preparing for your California Firearm Safety Certificate (FSC) exam? Don't walk up to the counter guessing on California Penal Code rules.\n\nSikhRPA built a 100% free, interactive 30-Question CA FSC Practice Exam aligned with official California Department of Justice guidelines:\n• Full 30-Question Exam or Quick 15-Question Study Mode\n• 75% Passing Threshold Benchmark (23/30 correct)\n• Instant Statutory Explanations after every single question\n• Category Competency Breakdown so you know exactly what to review\n• Works offline on mobile — zero login or fees required\n\nTest yourself today at sikhrpa.org/fsc-quiz.html (Link in bio).\n\nEducational Disclaimer: This practice exam is provided exclusively for public safety education. Official California FSC certification must be administered in-person at a CA DOJ-licensed dealer.\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #CaliforniaFSC #FirearmSafetyCertificate #CaliforniaCompliance #FirearmSafetyEducation #SafeStorage #PublicSafetyEducation #StudyGuide #CaliforniaSikhs #SikhCommunity #StaySafeBeResponsible", "story_prompt": "Share this Reel to your Story with a Link sticker to https://sikhrpa.org/fsc-quiz.html and a Slider/Poll sticker: 'Could you score 75%+ on the 30-question CA FSC safety test today?' (Options: 'Easy 100%!' / 'Let me practice first!').", "slides": [{"filename": "reel-00-cover.png", "path": "posts/post-03-ca-fsc-practice-exam-reel/reel-00-cover.png", "width": 1080, "height": 1920, "aspect": "9:16"}, {"filename": "reel-01-hook.png", "path": "posts/post-03-ca-fsc-practice-exam-reel/reel-01-hook.png", "width": 1080, "height": 1920, "aspect": "9:16"}, {"filename": "reel-02-problem.png", "path": "posts/post-03-ca-fsc-practice-exam-reel/reel-02-problem.png", "width": 1080, "height": 1920, "aspect": "9:16"}, {"filename": "reel-03-sample-question.png", "path": "posts/post-03-ca-fsc-practice-exam-reel/reel-03-sample-question.png", "width": 1080, "height": 1920, "aspect": "9:16"}, {"filename": "reel-04-features.png", "path": "posts/post-03-ca-fsc-practice-exam-reel/reel-04-features.png", "width": 1080, "height": 1920, "aspect": "9:16"}, {"filename": "reel-05-cta.png", "path": "posts/post-03-ca-fsc-practice-exam-reel/reel-05-cta.png", "width": 1080, "height": 1920, "aspect": "9:16"}]}, {"number": 4, "slug": "post-04-ca-first-time-buyer-roadmap", "week": 2, "date_display": "Tue, Dec 8, 2026", "time_pst": "12:00 PM PST", "format": "Carousel (7 slides, 4:5)", "format_type": "carousel", "title": "California First-Time Buyer's Compliance Roadmap (REAL ID, Residency & DROS)", "url": "https://sikhrpa.org/buyer-guide.html", "caption": "California has some of the most specific statutory documentation rules in the nation — and simple paperwork oversights are the #1 reason lawful first-time applicants get turned away at the counter.\n\nSwipe through SikhRPA's 5-Step California Compliance Roadmap to prepare every document properly:\n1. Primary ID (CA PC § 26845): Check the top-right corner of your CA Driver's License! If it says 'FEDERAL LIMITS APPLY' instead of displaying the REAL ID Golden Bear & Star, you MUST bring an unexpired U.S. Passport, certified U.S. Birth Certificate, or valid Green Card (Form I-551).\n2. Handgun Proof of Residency (11 CCR § 4045.1): Current DMV registration, municipal utility bill (≤90 days), signed residential lease, or property deed matching your ID address. Cell phone bills, bank statements, and internet/cable bills are strictly rejected.\n3. Firearm Safety Certificate (CA PC § 31615): 30-question exam (75% passing, $25 fee, valid 5 years).\n4. Exact 10-Day (240-Hour) DROS Wait (CA PC § 26815 & § 28220): Counted to the exact second, with a hard 30-day pickup expiration window.\n5. Delivery & Legal Transport (CA PC § 26850 & § 25610): Complete the Safe Handling Demonstration, verify a DOJ-approved lock/safe affidavit, and transport unloaded inside a locked container or trunk.\n\nUse the interactive counter-readiness self-audit checklist free at sikhrpa.org/buyer-guide.html (Link in bio).\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #CaliforniaCompliance #CAFirstTimeGuide #REALID #CaliforniaLaw #FirearmSafetyEducation #SafeStorage #SafeTransport #CaliforniaSikhs #SikhCommunity #PunjabiCommunity #StaySafeBeResponsible", "story_prompt": "Share Slide 2 (the CA 'FEDERAL LIMITS APPLY' vs. REAL ID visual comparison) to your Story with a Poll: 'Did you know about the CA Federal Limits Apply ID rule?' (Options: 'Yes, I knew!' / 'Good thing I checked!') + Link sticker to https://sikhrpa.org/buyer-guide.html.", "slides": [{"filename": "slide-01-cover.png", "path": "posts/post-04-ca-first-time-buyer-roadmap/slide-01-cover.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-02-real-id-comparison.png", "path": "posts/post-04-ca-first-time-buyer-roadmap/slide-02-real-id-comparison.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-03-proof-of-residency.png", "path": "posts/post-04-ca-first-time-buyer-roadmap/slide-03-proof-of-residency.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-04-fsc-exam.png", "path": "posts/post-04-ca-first-time-buyer-roadmap/slide-04-fsc-exam.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-05-dros-timeline.png", "path": "posts/post-04-ca-first-time-buyer-roadmap/slide-05-dros-timeline.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-06-delivery-transport.png", "path": "posts/post-04-ca-first-time-buyer-roadmap/slide-06-delivery-transport.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-07-checklist-cta.png", "path": "posts/post-04-ca-first-time-buyer-roadmap/slide-07-checklist-cta.png", "width": 1080, "height": 1350, "aspect": "4:5"}]}, {"number": 5, "slug": "post-05-holiday-safe-storage-pc25100", "week": 2, "date_display": "Thu, Dec 10, 2026", "time_pst": "6:00 PM PST", "format": "Carousel (6 slides, 4:5)", "format_type": "carousel", "title": "Holiday Safe Storage, CA Penal Code § 25100 & 3-Minute Pre-Guest Audit", "url": "https://sikhrpa.org/", "caption": "Hosting family, friends, and visiting children this holiday season? Take 3 minutes to audit your home firearm storage BEFORE guests arrive.\n\nUnder California Penal Code § 25100 and § 25140, criminal storage of an unsecured firearm where a minor under 18 or prohibited person gains access and causes harm is a serious felony. Hiding a firearm on a high closet shelf or inside a nightstand drawer is NOT a legal defense — and never keeps curious children safe.\n\nSwipe through for:\n• CA Penal Code § 25100 & § 25140 summary in English & Gurmukhi\n• The 3 Levels of CA DOJ-Approved Safe Storage (Cable Lock • Biometric Lockbox • Fire-Rated Steel Safe)\n• The 3-Minute Pre-Guest Home Safety Audit checklist\n• The 4 Essential Safety Rules for Kids (STOP • Don't Touch • Leave Area • Tell an Adult / ੧. ਰੁਕੋ • ੨. ਹੱਥ ਨਾ ਲਾਓ • ੩. ਦੂਰ ਹਟੋ • ੪. ਵੱਡਿਆਂ ਨੂੰ ਦੱਸੋ)\n\nNeed a CA DOJ-approved cable lock? SikhRPA distributes free cable safety locks at every community workshop. Email president@sikhrpa.org or visit sikhrpa.org (Link in bio).\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #SafeStorage #HolidaySafety #ChildSafety #CaliforniaLaw #PC25100 #FirearmSafetyEducation #HomeSafety #PublicSafetyEducation #SikhCommunity #CaliforniaSikhs #StaySafeBeResponsible", "story_prompt": "Repost Slide 4 (the 3-Minute Pre-Guest Safety Audit) to your Story with a reminder: 'Hosting family this December? Screenshot this 3-minute safe storage check!' Include a Question sticker: 'Need a free CA DOJ cable lock for your household? DM or email president@sikhrpa.org.'", "slides": [{"filename": "slide-01-cover.png", "path": "posts/post-05-holiday-safe-storage-pc25100/slide-01-cover.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-02-pc25100-law.png", "path": "posts/post-05-holiday-safe-storage-pc25100/slide-02-pc25100-law.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-03-three-storage-levels.png", "path": "posts/post-05-holiday-safe-storage-pc25100/slide-03-three-storage-levels.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-04-pre-guest-audit.png", "path": "posts/post-05-holiday-safe-storage-pc25100/slide-04-pre-guest-audit.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-05-child-safety-rules.png", "path": "posts/post-05-holiday-safe-storage-pc25100/slide-05-child-safety-rules.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-06-free-locks-cta.png", "path": "posts/post-05-holiday-safe-storage-pc25100/slide-06-free-locks-cta.png", "width": 1080, "height": 1350, "aspect": "4:5"}]}, {"number": 6, "slug": "post-06-daily-legal-regulatory-watch", "week": 2, "date_display": "Sat, Dec 12, 2026", "time_pst": "10:00 AM PST", "format": "Single Editorial Graphic (4:5) + Story Q&A Template (9:16)", "format_type": "single", "title": "California Firearms Legal & Regulatory Watch (sikhrpa.org/news.html)", "url": "https://sikhrpa.org/news.html", "caption": "California firearm statutes, court injunctions, and CA DOJ Bureau of Firearms bulletins change constantly — and staying law-abiding starts with reliable, non-sensationalized information.\n\nSikhRPA maintains a free, automated Daily California Legal & Regulatory Watch archive at sikhrpa.org/news.html tracking five public categories:\n• Chaptered California Legislation & Effective Dates\n• Federal 9th Circuit & District Court Rulings / Stays\n• Official CA DOJ Bureau of Firearms Regulatory Bulletins\n• Authoritative State Reporting\n• Community Safety & Safe Storage Advisories\n\nHave a general educational question about California safe storage, FSC preparation, or regulatory updates? Drop it in our Story Q&A box today or comment below so we can cover it in a future educational guide!\n\nBookmark the permanent archive: sikhrpa.org/news.html (Link in bio)\n\nEducational Disclaimer: SikhRPA is an IRS-recognized 501(c)(3) educational nonprofit and does not provide legal advice or representation. Always consult a qualified California attorney or verify statutes directly with the California DOJ Bureau of Firearms.\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #CaliforniaLegalWatch #CaliforniaCompliance #RegulatoryUpdate #PublicSafetyEducation #FirearmSafetyEducation #CaliforniaLaw #CADOJ #SikhCommunity #CaliforniaSikhs #StaySafeBeResponsible", "story_prompt": "Upload story-01-qa-template.png (9:16) to your Instagram Story! Place the native Instagram 'Questions' sticker directly inside the dashed gold interactive box with prompt: 'Ask a CA safety or compliance question!' and add a Link sticker to https://sikhrpa.org/news.html.", "slides": [{"filename": "post-01-editorial.png", "path": "posts/post-06-daily-legal-regulatory-watch/post-01-editorial.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "story-01-qa-template.png", "path": "posts/post-06-daily-legal-regulatory-watch/story-01-qa-template.png", "width": 1080, "height": 1920, "aspect": "9:16"}]}, {"number": 7, "slug": "post-07-pistol-shot-diagnostic-reel", "week": 3, "date_display": "Tue, Dec 15, 2026", "time_pst": "12:00 PM PST", "format": "Reel (9:16 Cover + 5 Storyboard Frames)", "format_type": "reel", "title": "Interactive Pistol Shot Diagnostic — Fixing Low-Left (7–8 O'Clock)", "url": "https://sikhrpa.org/shot-diagnosis.html", "caption": "Are your pistol shots consistently landing low and to the left (7:00–8:00 o'clock)? Nearly 85% of right-handed shooters experience this exact pattern — and it is almost never your sights.\n\nWhat's really happening biomechanically:\n1. Sympathetic Grip Squeeze: As your index finger presses the trigger, your bottom three fingers (middle, ring, pinky) clench involuntarily, pulling the muzzle downward and inward.\n2. Recoil Anticipation: Pre-emptively pushing the wrist down right before the shot breaks.\n3. Trigger Finger Placement: Hooking too deep into the 1st joint crease drags the frame left; use the center pad sweet spot and hinge straight rearward.\n\nThe Fix — The 70/30 Grip Rule:\nApply ~70% clamping pressure with your support hand and keep your dominant hand relaxed (~30%) so your trigger finger moves independently.\n\nDry-Fire Safety Checklist (BEFORE every drill):\n✓ Visually & physically verify chamber & magwell are 100% clear\n✓ Remove ALL live ammunition from the room\n✓ Point strictly at a safe, solid backstop\n\nTry our free interactive 8-sector target wheel (with right & left-handed mirroring) and bilingual drills at sikhrpa.org/shot-diagnosis.html (Link in bio).\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #MarksmanshipFundamentals #PistolFundamentals #DryFireSafety #RangeSafety #FirearmSafetyEducation #TriggerControl #Biomechanics #SikhCommunity #CaliforniaSikhs #StaySafeBeResponsible", "story_prompt": "Share this Reel to your Story with a Poll sticker: 'Where do your pistol groups drift most often?' (Options: '7–8 o'clock Low-Left!' / 'Dead center!') and a Link sticker to https://sikhrpa.org/shot-diagnosis.html.", "slides": [{"filename": "reel-00-cover.png", "path": "posts/post-07-pistol-shot-diagnostic-reel/reel-00-cover.png", "width": 1080, "height": 1920, "aspect": "9:16"}, {"filename": "reel-01-hook.png", "path": "posts/post-07-pistol-shot-diagnostic-reel/reel-01-hook.png", "width": 1080, "height": 1920, "aspect": "9:16"}, {"filename": "reel-02-root-cause.png", "path": "posts/post-07-pistol-shot-diagnostic-reel/reel-02-root-cause.png", "width": 1080, "height": 1920, "aspect": "9:16"}, {"filename": "reel-03-70-30-grip.png", "path": "posts/post-07-pistol-shot-diagnostic-reel/reel-03-70-30-grip.png", "width": 1080, "height": 1920, "aspect": "9:16"}, {"filename": "reel-04-dry-fire-checklist.png", "path": "posts/post-07-pistol-shot-diagnostic-reel/reel-04-dry-fire-checklist.png", "width": 1080, "height": 1920, "aspect": "9:16"}, {"filename": "reel-05-cta.png", "path": "posts/post-07-pistol-shot-diagnostic-reel/reel-05-cta.png", "width": 1080, "height": 1920, "aspect": "9:16"}]}, {"number": 8, "slug": "post-08-bilingual-range-trauma-stop-the-bleed", "week": 3, "date_display": "Thu, Dec 17, 2026", "time_pst": "5:30 PM PST", "format": "Carousel (6 slides, 4:5)", "format_type": "carousel", "title": "Bilingual Range Trauma & Stop the Bleed (IFAK Audit, Tourniquet & 911 Script)", "url": "https://sikhrpa.org/trauma-safety.html", "caption": "If you carry safety gear to the range, carry the training and supplies to stop life-threatening bleeding too. Severe arterial bleeding can become fatal in minutes — long before an ambulance reaches a remote outdoor range.\n\nSwipe through SikhRPA's Bilingual Range Trauma & Stop the Bleed Awareness Guide:\n• First 60 Seconds: Call 'CEASE FIRE!' & Dial 911 → Find Bleeding Source → Compress / Tourniquet\n• 4 Mandatory Tourniquet Rules in English & Gurmukhi (ਟੂਰਨੀਕੇਟ ਲਗਾਉਣ ਦੇ ੪ ਲਾਜ਼ਮੀ ਨਿਯਮ): 2–3\" above wound (never on a joint), pull strap max tight, twist windlass until bleeding stops, write time (T: HH:MM) & NEVER loosen\n• Junctional Wound Packing, Vented Chest Seals (check the back for exit wounds!), & Hypothermia Prevention\n• 6-Item Range Bag IFAK Checklist (use only authentic CoTCCC-approved tourniquets like CAT Gen 7, SOFTT-W, or SAM XT)\n• Verbatim Remote Range 911 Dispatch Script with GPS coordinates & highway gate escort\n\nRead the full bilingual guide & use the interactive IFAK Auditor and GPS 911 Script Generator at sikhrpa.org/trauma-safety.html (Link in bio).\n\nMedical Disclaimer: Provided strictly for general safety awareness and does not constitute medical advice. Always dial 911 in an emergency and pursue formal hands-on training through the American College of Surgeons Stop the Bleed® program or the American Red Cross.\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #StopTheBleed #FirstAidEducation #RangeSafety #EmergencyPreparedness #IFAK #PublicSafetyEducation #BilingualSafety #Gurmukhi #SikhCommunity #CaliforniaSikhs #StaySafeBeResponsible", "story_prompt": "Share Slide 5 (the 6-Item Range Bag IFAK Audit) to your Story with a Poll sticker: 'Do you carry a stocked IFAK on the outside of your range bag?' (Options: 'Yes — 6/6 ready!' / 'Building mine this week!') + Link sticker to https://sikhrpa.org/trauma-safety.html.", "slides": [{"filename": "slide-01-cover.png", "path": "posts/post-08-bilingual-range-trauma-stop-the-bleed/slide-01-cover.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-02-three-steps.png", "path": "posts/post-08-bilingual-range-trauma-stop-the-bleed/slide-02-three-steps.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-03-tourniquet-rules.png", "path": "posts/post-08-bilingual-range-trauma-stop-the-bleed/slide-03-tourniquet-rules.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-04-junctional-chest-hypothermia.png", "path": "posts/post-08-bilingual-range-trauma-stop-the-bleed/slide-04-junctional-chest-hypothermia.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-05-ifak-audit.png", "path": "posts/post-08-bilingual-range-trauma-stop-the-bleed/slide-05-ifak-audit.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-06-911-dispatch-script.png", "path": "posts/post-08-bilingual-range-trauma-stop-the-bleed/slide-06-911-dispatch-script.png", "width": 1080, "height": 1350, "aspect": "4:5"}]}, {"number": 9, "slug": "post-09-how-to-zero-optics", "week": 3, "date_display": "Sat, Dec 19, 2026", "time_pst": "10:00 AM PST", "format": "Carousel (6 slides, 4:5)", "format_type": "carousel", "title": "How to Zero Optics — Centroid Triangulation, MOA vs MIL, Click Scaling & Height-Over-Bore", "url": "https://sikhrpa.org/zero-optics.html", "caption": "Stop burning ammunition chasing single bullet holes on paper! Zeroing a pistol red dot or rifle scope is pure geometry once you understand four simple principles.\n\nSwipe through SikhRPA's visual technical guide to zeroing optics accurately:\n• 5-Shot Group Centroid Triangulation: Never adjust for one shot — fire a rested 3–5 shot group, find the Mean Point of Impact (MPI), and dial once.\n• MOA vs. MIL (MRAD): 1 MOA ≈ 1.047\" at 100 yds (1/4, 1/2, or 1 MOA clicks) vs. 1 MIL = 3.60\" at 100 yds (0.1 MIL = 0.36\" per click). Golden Rule: turret arrows ('UP' / 'R') move your bullet impact (POI)!\n• 25 / 50 / 100-Yard Click Scaling: Closer targets mean smaller inch-per-click shifts — so 25 yards requires 4× as many clicks per inch as 100 yards.\n• Height-Over-Bore Mechanical Offset: Because an optic sits ~2.6\" above a carbine bore (~0.8\" on pistols), close 3–7 yard shots naturally hit 1.5\"–2.5\" below your dot.\n• 5-Step Field Zeroing Protocol in English & Gurmukhi (ਸਹੀ ਜ਼ੀਰੋਇੰਗ ਲਈ ੫ ਜ਼ਰੂਰੀ ਕਦਮ)\n\nPlot your target hits and get exact turret clicks automatically — zero math required — with our free Zeroing Click Calculator at sikhrpa.org/zero-optics.html (Link in bio).\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #OpticsZeroing #MarksmanshipFundamentals #BallisticsEducation #MOAvsMIL #RangeSafety #FirearmSafetyEducation #HeightOverBore #TechnicalEducation #SikhCommunity #CaliforniaSikhs #StaySafeBeResponsible", "story_prompt": "Share Slide 4 (the 25/50/100-Yard Click Scaling chart) to your Story with the text: 'Bookmark this click scaling chart for your next range day!' and a Link sticker to https://sikhrpa.org/zero-optics.html.", "slides": [{"filename": "slide-01-cover.png", "path": "posts/post-09-how-to-zero-optics/slide-01-cover.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-02-centroid-triangulation.png", "path": "posts/post-09-how-to-zero-optics/slide-02-centroid-triangulation.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-03-moa-vs-mil.png", "path": "posts/post-09-how-to-zero-optics/slide-03-moa-vs-mil.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-04-click-scaling.png", "path": "posts/post-09-how-to-zero-optics/slide-04-click-scaling.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-05-height-over-bore.png", "path": "posts/post-09-how-to-zero-optics/slide-05-height-over-bore.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-06-five-step-cta.png", "path": "posts/post-09-how-to-zero-optics/slide-06-five-step-cta.png", "width": 1080, "height": 1350, "aspect": "4:5"}]}, {"number": 10, "slug": "post-10-miri-piri-shaheedi-week", "week": 4, "date_display": "Tue, Dec 22, 2026 (Shaheedi Week)", "time_pst": "12:00 PM PST", "format": "Carousel (6 slides, 4:5)", "format_type": "carousel", "title": "Shaheedi Week Reflection — Miri-Piri, Sant-Sipahi & Sikh Martial Heritage", "url": "https://sikhrpa.org/heritage.html", "caption": "During Shaheedi Week (Poh / late December), we bow our heads in solemn remembrance of the Chaar Sahibzaade — Baba Ajit Singh Ji, Baba Jujhar Singh Ji, Baba Zorawar Singh Ji, and Baba Fateh Singh Ji — alongside Mata Gujri Ji and the devoted Sikhs of Chamkaur Sahib and Sirhind.\n\nTheir sacrifice illuminates the deepest truth of Sikh martial heritage: strength is never rooted in aggression, vanity, or dominance. It is bound to spiritual humility (Piri), moral restraint (Miri), and unwavering protection of human dignity.\n\nIn the Zafarnama (Verse 22), Guru Gobind Singh Ji articulated the ethic that guides our educational mission to this day:\nਚੁ ਕਾਰ ਅਜ਼ ਹਮਹ ਹੀਲਤੇ ਦਰ ਗੁਜ਼ਸ਼ਤ ॥\nਹਲਾਲ ਅਸਤ ਬੁਰਦਨ ਬ ਸ਼ਮਸ਼ੀਰ ਦਸਤ ॥੨੨॥\n\"When all other peaceful avenues have been exhausted and every remedy has failed, only then is it righteous to take up the sword.\"\n\nToday, honoring that sacred covenant of Shastar reverence means exercising total discipline: de-escalation first, strict obedience to the law, safe home storage to protect every child, and humble service (Seva) to our Sangat and neighbors.\n\nRead our complete educational curriculum on Sikh Martial Heritage & Responsible Stewardship at sikhrpa.org/heritage.html (Link in bio).\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #ShaheediWeek #ChaarSahibzaade #MataGujriJi #MiriPiri #SantSipahi #SikhHeritage #SikhHistory #SikhCommunity #CaliforniaSikhs #ResponsibleStewardship #StaySafeBeResponsible", "story_prompt": "Share Slide 1 or Slide 5 (Zafarnama Verse 22) respectfully to your Story with minimal overlay — add a quiet Link sticker to https://sikhrpa.org/heritage.html and text: 'Remembering the Chaar Sahibzaade and Mata Gujri Ji this Shaheedi Week.'", "slides": [{"filename": "slide-01-cover.png", "path": "posts/post-10-miri-piri-shaheedi-week/slide-01-cover.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-02-sahibzaade-tribute.png", "path": "posts/post-10-miri-piri-shaheedi-week/slide-02-sahibzaade-tribute.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-03-miri-piri.png", "path": "posts/post-10-miri-piri-shaheedi-week/slide-03-miri-piri.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-04-sant-sipahi.png", "path": "posts/post-10-miri-piri-shaheedi-week/slide-04-sant-sipahi.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-05-zafarnama.png", "path": "posts/post-10-miri-piri-shaheedi-week/slide-05-zafarnama.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-06-modern-stewardship.png", "path": "posts/post-10-miri-piri-shaheedi-week/slide-06-modern-stewardship.png", "width": 1080, "height": 1350, "aspect": "4:5"}]}, {"number": 11, "slug": "post-11-host-2027-gurdwara-workshop", "week": 4, "date_display": "Thu, Dec 24, 2026", "time_pst": "4:00 PM PST", "format": "Single Community Poster (4:5) + Story Template (9:16)", "format_type": "single", "title": "Host a Free 2027 Safety & Safe Storage Workshop at Your Gurdwara", "url": "https://sikhrpa.org/", "caption": "Planning your Gurdwara Sahib or Sikh community center's 2027 educational calendar? Partner with SikhRPA to host a 100% FREE bilingual Safety & Safe Storage Workshop!\n\nWhat SikhRPA provides at zero cost to your Gurdwara or Sangat:\n• Certified bilingual instructors presenting in Punjabi & English\n• Practical California Safe Storage education (CA Penal Code § 25100) & child safety rules\n• Welcoming, classroom-only environment open to families, women (Bibian), elders & absolute beginners\n• Optional Stop the Bleed / Gurdwara bleeding-control cabinet & Sevadaar readiness briefing\n• FREE CA DOJ-approved cable safety locks & printed bilingual safety handbooks for every attending family\n\nਗੁਰਦੁਆਰਾ ਸਾਹਿਬ ਵਿਖੇ ਕੈਂਪ: ਆਪਣੇ ਸਥਾਨਕ ਗੁਰਦੁਆਰਾ ਸਾਹਿਬ ਵਿੱਚ ਪੰਜਾਬੀ ਵਿੱਚ ਮੁਫ਼ਤ ਸੁਰੱਖਿਆ ਸੈਮੀਨਾਰ ਕਰਵਾਉਣ ਲਈ ਸਾਨੂੰ ਈਮੇਲ ਕਰੋ: president@sikhrpa.org\n\nReserve a 2027 date for your Bay Area, Central Valley, Sacramento, or Southern California Gurdwara:\nEmail: president@sikhrpa.org | Web: sikhrpa.org | Federal EIN: 42-2595402\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #GurdwaraOutreach #SafeStorage #CommunityWorkshop #FirearmSafetyEducation #BilingualEducation #PunjabiCommunity #CaliforniaSikhs #SikhCommunity #PublicSafetyEducation #Nonprofit501c3 #StaySafeBeResponsible", "story_prompt": "Upload story-01-workshop-share.png (9:16) to your Story! Invite followers to tag their local California Gurdwara committee or forward the Story to a Sevadaar, and add a Link sticker to https://sikhrpa.org/ with text 'Email president@sikhrpa.org for 2027 dates'.", "slides": [{"filename": "post-01-poster.png", "path": "posts/post-11-host-2027-gurdwara-workshop/post-01-poster.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "story-01-workshop-share.png", "path": "posts/post-11-host-2027-gurdwara-workshop/story-01-workshop-share.png", "width": 1080, "height": 1920, "aspect": "9:16"}]}, {"number": 12, "slug": "post-12-year-end-501c3-giving-appeal", "week": 4, "date_display": "Sat, Dec 26, 2026", "time_pst": "10:30 AM PST", "format": "Reel Cover (9:16) + Carousel (5 slides, 4:5)", "format_type": "carousel", "title": "Year-End 501(c)(3) Tax-Deductible Giving Appeal (Before Dec 31)", "url": "https://sikhrpa.org/donate.html", "caption": "Only 5 days remain to make a 2026 tax-deductible contribution before December 31 at 11:59 PM!\n\nBecause the Sikh Rifle and Pistol Association (SikhRPA) is an IRS-recognized 501(c)(3) public charity (Federal EIN: 42-2595402), every dollar you give is tax-deductible under IRC § 170 and directly powers free public safety education in 2027:\n\n• $20 — Provides 1 free CA DOJ-approved cable safety lock for a California family\n• $50 — Prints and distributes 100 pocket English & Gurmukhi safety reference manuals\n• $150 — Supplies 10 beginner students with ANSI Z87.1 eye & 30+ dB ear protection\n• $1,000 — Fully sponsors an in-person bilingual Gurdwara Safety & Safe Storage Workshop\n\nWays to Give Before Dec 31:\n1. Zelle® (0% Fees — 100% to mission): Tag 'sikhrpa' (include your email in the memo for your IRS receipt)\n2. PayPal / Card / Venmo: sikhrpa.org/donate.html (PayPal ID: #S5PAN9B85U28J)\n3. Employer Corporate Match: Search EIN 42-2595402 in Benevity or CyberGrants — double your impact!\n4. Official IRS Tax Receipt / Form W-9: Request anytime at sikhrpa.org/receipt.html or president@sikhrpa.org\n\nThank you for standing with us to keep California families safe, informed, and compliant.\n\nਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!", "hashtags": "#SikhRPA #YearEndGiving #Nonprofit501c3 #TaxDeductible #PublicSafetyEducation #SafeStorage #FirearmSafetyEducation #Dasvandh #SikhCommunity #CaliforniaSikhs #PunjabiCommunity #StaySafeBeResponsible", "story_prompt": "Post reel-00-cover.png (9:16) as a Year-End Countdown Story or Reel cover! Add an Instagram 'Countdown' sticker set to Dec 31, 2026 11:59 PM PST ('2026 Tax-Deductible Giving Closes') and a Link sticker directly to https://sikhrpa.org/donate.html.", "slides": [{"filename": "reel-00-cover.png", "path": "posts/post-12-year-end-501c3-giving-appeal/reel-00-cover.png", "width": 1080, "height": 1920, "aspect": "9:16"}, {"filename": "slide-01-cover.png", "path": "posts/post-12-year-end-501c3-giving-appeal/slide-01-cover.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-02-what-we-built.png", "path": "posts/post-12-year-end-501c3-giving-appeal/slide-02-what-we-built.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-03-impact-tiers.png", "path": "posts/post-12-year-end-501c3-giving-appeal/slide-03-impact-tiers.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-04-how-to-give.png", "path": "posts/post-12-year-end-501c3-giving-appeal/slide-04-how-to-give.png", "width": 1080, "height": 1350, "aspect": "4:5"}, {"filename": "slide-05-thank-you-cta.png", "path": "posts/post-12-year-end-501c3-giving-appeal/slide-05-thank-you-cta.png", "width": 1080, "height": 1350, "aspect": "4:5"}]}];
+    let activeWeek = "all";
+    let activeFmt = "all";
+    let searchTerm = "";
+    const activeSlides = {};
+    POSTS.forEach(p => activeSlides[p.number] = 0);
+
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
+    }
+
+    async function copyText(text, label) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("✓ Copied " + label);
+      } catch {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast("✓ Copied " + label);
+      }
+    }
+
+    function openLightbox(src, caption) {
+      document.getElementById("lbImg").src = src;
+      document.getElementById("lbCaption").textContent = caption;
+      document.getElementById("lightbox").classList.add("open");
+    }
+
+    function closeLightbox(e) {
+      if (e.target.id === "lightbox" || e.target.classList.contains("lb-close")) {
+        document.getElementById("lightbox").classList.remove("open");
+      }
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") document.getElementById("lightbox").classList.remove("open");
+    });
+
+    function setSlide(postNum, idx) {
+      const post = POSTS.find(p => p.number === postNum);
+      if (!post) return;
+      const total = post.slides.length;
+      const next = ((idx % total) + total) % total;
+      activeSlides[postNum] = next;
+      const s = post.slides[next];
+      const img = document.getElementById("stage-img-" + postNum);
+      const pill = document.getElementById("stage-pill-" + postNum);
+      const dl = document.getElementById("stage-dl-" + postNum);
+      if (img) {
+        img.src = s.path;
+        img.onclick = () => openLightbox(s.path, `Post ${String(postNum).padStart(2,'0')} • ${s.filename} (${s.width}×${s.height} • ${s.aspect})`);
+      }
+      if (pill) pill.textContent = `${next + 1} / ${total} • ${s.filename} (${s.aspect})`;
+      if (dl) {
+        dl.href = s.path;
+        dl.download = s.filename;
+      }
+      document.querySelectorAll(`[data-thumb-post="${postNum}"]`).forEach((t, i) => {
+        t.classList.toggle("active", i === next);
+      });
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function renderPosts() {
+      const grid = document.getElementById("postsGrid");
+      const filtered = POSTS.filter(p => {
+        if (activeWeek !== "all" && String(p.week) !== activeWeek) return false;
+        if (activeFmt !== "all" && p.format_type !== activeFmt) return false;
+        if (searchTerm) {
+          const hay = (p.title + " " + p.caption + " " + p.hashtags + " " + p.date_display).toLowerCase();
+          if (!hay.includes(searchTerm)) return false;
+        }
+        return true;
+      });
+
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="post-card" style="padding:40px;text-align:center;color:#94a3b8;">No posts match your current filter.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(p => {
+        const idx = activeSlides[p.number] || 0;
+        const cur = p.slides[idx];
+        const thumbs = p.slides.map((s, i) => `
+          <img class="thumb ${i === idx ? 'active' : ''}"
+               src="${s.path}"
+               alt="${s.filename}"
+               title="${s.filename}"
+               data-thumb-post="${p.number}"
+               onclick="setSlide(${p.number}, ${i})" />
+        `).join("");
+
+        return `
+        <article class="post-card">
+          <div class="post-head">
+            <div class="post-title-wrap">
+              <div class="post-num">${String(p.number).padStart(2, '0')}</div>
+              <div>
+                <h2>${escapeHtml(p.title)}</h2>
+                <div class="post-meta">📅 ${escapeHtml(p.date_display)} &nbsp;•&nbsp; ⏰ ${escapeHtml(p.time_pst)} &nbsp;•&nbsp; 🔗 <a href="${p.url}" target="_blank" style="color:#fbbf24;text-decoration:none;font-weight:700;">${p.url.replace('https://','')}</a></div>
+              </div>
+            </div>
+            <div class="badges">
+              <span class="badge badge-gold">Week ${p.week}</span>
+              <span class="badge">${escapeHtml(p.format)}</span>
+              <span class="badge">${p.slides.length} PNGs</span>
+            </div>
+          </div>
+
+          <div class="post-content">
+            <div class="stage-wrap">
+              <div class="stage">
+                <img id="stage-img-${p.number}"
+                     src="${cur.path}"
+                     alt="${cur.filename}"
+                     onclick="openLightbox('${cur.path}', 'Post ${String(p.number).padStart(2,'0')} • ${cur.filename} (${cur.width}×${cur.height} • ${cur.aspect})')" />
+                ${p.slides.length > 1 ? `
+                  <button class="nav-btn nav-prev" onclick="setSlide(${p.number}, (activeSlides[${p.number}]||0) - 1)" aria-label="Previous slide">‹</button>
+                  <button class="nav-btn nav-next" onclick="setSlide(${p.number}, (activeSlides[${p.number}]||0) + 1)" aria-label="Next slide">›</button>
+                ` : ''}
+                <div class="slide-pill" id="stage-pill-${p.number}">${idx + 1} / ${p.slides.length} • ${cur.filename} (${cur.aspect})</div>
+              </div>
+              <div class="thumbs">${thumbs}</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a class="btn" id="stage-dl-${p.number}" href="${cur.path}" download="${cur.filename}" style="font-size:0.8rem;padding:7px 12px;">⬇ Download Current PNG</a>
+                <a class="btn" href="posts/${p.slug}/caption.txt" target="_blank" style="font-size:0.8rem;padding:7px 12px;">📄 Open caption.txt</a>
+              </div>
+            </div>
+
+            <div class="copy-panel">
+              <div class="copy-actions">
+                <button class="btn btn-gold" onclick="copyPostAll(${p.number})">📋 Copy Caption + Hashtags</button>
+                <button class="btn btn-blue" onclick="copyPostCaption(${p.number})">Copy Caption Only</button>
+                <button class="btn" onclick="copyPostHashtags(${p.number})">Copy Hashtags</button>
+                <button class="btn" onclick="copyPostStory(${p.number})">Copy Story Prompt</button>
+              </div>
+
+              <div>
+                <div class="box-label">Ready-to-Paste Instagram Caption</div>
+                <div class="caption-box">${escapeHtml(p.caption)}</div>
+              </div>
+
+              <div>
+                <div class="box-label">Clean Educational Hashtags (Meta Policy Safe)</div>
+                <div class="hashtag-box">${escapeHtml(p.hashtags)}</div>
+              </div>
+
+              <div>
+                <div class="box-label">Companion Story Prompt</div>
+                <div class="story-box">${escapeHtml(p.story_prompt)}</div>
+              </div>
+            </div>
+          </div>
+        </article>`;
+      }).join("");
+    }
+
+    function copyPostAll(num) {
+      const p = POSTS.find(x => x.number === num);
+      copyText(p.caption + "\n\n" + p.hashtags, `Post ${String(num).padStart(2,'0')} Caption + Hashtags`);
+    }
+    function copyPostCaption(num) {
+      const p = POSTS.find(x => x.number === num);
+      copyText(p.caption, `Post ${String(num).padStart(2,'0')} Caption`);
+    }
+    function copyPostHashtags(num) {
+      const p = POSTS.find(x => x.number === num);
+      copyText(p.hashtags, `Post ${String(num).padStart(2,'0')} Hashtags`);
+    }
+    function copyPostStory(num) {
+      const p = POSTS.find(x => x.number === num);
+      copyText(p.story_prompt, `Post ${String(num).padStart(2,'0')} Story Prompt`);
+    }
+
+    document.querySelectorAll("#weekFilters .chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#weekFilters .chip").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeWeek = btn.dataset.week;
+        renderPosts();
+      });
+    });
+
+    document.querySelectorAll("#formatFilters .chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#formatFilters .chip").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeFmt = btn.dataset.fmt;
+        renderPosts();
+      });
+    });
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      searchTerm = e.target.value.trim().toLowerCase();
+      renderPosts();
+    });
+
+    renderPosts();
+  </script>
+</body>
+</html>

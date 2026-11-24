@@ -1,0 +1,30 @@
+========================================================================
+POST 09 — How to Zero Optics — Centroid Triangulation, MOA vs MIL, Click Scaling & Height-Over-Bore
+Schedule: Sat, Dec 19, 2026 • 10:00 AM PST
+Format:   Carousel (6 slides, 4:5)
+Link:     https://sikhrpa.org/zero-optics.html
+Media:    slide-01-cover.png, slide-02-centroid-triangulation.png, slide-03-moa-vs-mil.png, slide-04-click-scaling.png, slide-05-height-over-bore.png, slide-06-five-step-cta.png
+========================================================================
+
+--- CAPTION (READY TO PASTE) ---
+
+Stop burning ammunition chasing single bullet holes on paper! Zeroing a pistol red dot or rifle scope is pure geometry once you understand four simple principles.
+
+Swipe through SikhRPA's visual technical guide to zeroing optics accurately:
+• 5-Shot Group Centroid Triangulation: Never adjust for one shot — fire a rested 3–5 shot group, find the Mean Point of Impact (MPI), and dial once.
+• MOA vs. MIL (MRAD): 1 MOA ≈ 1.047" at 100 yds (1/4, 1/2, or 1 MOA clicks) vs. 1 MIL = 3.60" at 100 yds (0.1 MIL = 0.36" per click). Golden Rule: turret arrows ('UP' / 'R') move your bullet impact (POI)!
+• 25 / 50 / 100-Yard Click Scaling: Closer targets mean smaller inch-per-click shifts — so 25 yards requires 4× as many clicks per inch as 100 yards.
+• Height-Over-Bore Mechanical Offset: Because an optic sits ~2.6" above a carbine bore (~0.8" on pistols), close 3–7 yard shots naturally hit 1.5"–2.5" below your dot.
+• 5-Step Field Zeroing Protocol in English & Gurmukhi (ਸਹੀ ਜ਼ੀਰੋਇੰਗ ਲਈ ੫ ਜ਼ਰੂਰੀ ਕਦਮ)
+
+Plot your target hits and get exact turret clicks automatically — zero math required — with our free Zeroing Click Calculator at sikhrpa.org/zero-optics.html (Link in bio).
+
+ਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!
+
+--- HASHTAGS (READY TO PASTE) ---
+
+#SikhRPA #OpticsZeroing #MarksmanshipFundamentals #BallisticsEducation #MOAvsMIL #RangeSafety #FirearmSafetyEducation #HeightOverBore #TechnicalEducation #SikhCommunity #CaliforniaSikhs #StaySafeBeResponsible
+
+--- INSTAGRAM STORY PROMPT ---
+
+Share Slide 4 (the 25/50/100-Yard Click Scaling chart) to your Story with the text: 'Bookmark this click scaling chart for your next range day!' and a Link sticker to https://sikhrpa.org/zero-optics.html.
