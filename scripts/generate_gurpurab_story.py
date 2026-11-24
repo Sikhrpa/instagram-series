@@ -106,8 +106,8 @@ def build_gurpurab_html() -> str:
   }}
 
   .ikonkar-halo {{
-    width: 248px;
-    height: 248px;
+    width: 264px;
+    height: 264px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -117,18 +117,7 @@ def build_gurpurab_html() -> str:
     box-shadow:
       0 0 0 14px rgba(217, 119, 6, 0.10),
       0 0 65px rgba(245, 158, 11, 0.30);
-  }}
-
-  .ikonkar-glyph {{
-    font-family: 'Noto Serif Gurmukhi', 'Noto Sans Gurmukhi', serif;
-    font-size: 138px;
-    font-weight: 700;
-    line-height: 1.1;
-    background: linear-gradient(180deg, #fef3c7 0%, #fbbf24 52%, #d97706 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 6px 18px rgba(217, 119, 6, 0.45));
-    padding-top: 8px;
+    overflow: visible;
   }}
 
   .eyebrow {{
@@ -302,7 +291,20 @@ def build_gurpurab_html() -> str:
 
     <div class="center-piece">
       <div class="ikonkar-halo">
-        <div class="ikonkar-glyph">ੴ</div>
+        <svg viewBox="0 0 280 280" width="256" height="256" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ikGold" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#fef3c7"/>
+              <stop offset="52%" stop-color="#fbbf24"/>
+              <stop offset="100%" stop-color="#d97706"/>
+            </linearGradient>
+            <filter id="ikGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#d97706" flood-opacity="0.45"/>
+            </filter>
+          </defs>
+          <text x="140" y="182" text-anchor="middle" fill="url(#ikGold)" filter="url(#ikGlow)"
+                font-family="'Noto Serif Gurmukhi', 'Noto Sans Gurmukhi', serif" font-size="112" font-weight="700">ੴ</text>
+        </svg>
       </div>
 
       <div class="eyebrow">Parkash Purab • Sri Guru Nanak Dev Ji</div>
