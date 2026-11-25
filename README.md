@@ -24,7 +24,31 @@ Production-ready 4-week (12-post, 65-graphic) bilingual Instagram educational ca
 | **11** | **Thu, Dec 24** • 4:00 PM | Single Community Poster (4:5) + Story Template (9:16) | 2 PNGs | Host a Free 2027 Safety & Safe Storage Workshop at Your Gurdwara (`president@sikhrpa.org`) | [`posts/post-11-host-2027-gurdwara-workshop`](posts/post-11-host-2027-gurdwara-workshop/) |
 | **12** | **Sat, Dec 26** • 10:30 AM | Reel Cover (9:16) + Carousel (5 slides, 4:5) | 6 PNGs | Year-End 501(c)(3) Tax-Deductible Giving Appeal Before Dec 31 ([donate.html](https://sikhrpa.org/donate.html)) | [`posts/post-12-year-end-501c3-giving-appeal`](posts/post-12-year-end-501c3-giving-appeal/) |
 
-**Total Deliverables:** 12 complete posts • **65 production-ready PNGs** (`1080×1350` for 4:5 feed posts and `1080×1920` for 9:16 Reels & Stories) • 12 ready-to-paste `caption.txt` files • `schedule.csv` • Interactive GitHub Pages Gallery (`index.html`).
+**Total Launch Series Deliverables (Dec 2026):** 12 multi-slide posts • **65 production PNGs** + **Bonus Guru Nanak Gurpurab Story** (`posts/bonus-guru-nanak-gurpurab-story/`).
+
+---
+
+## Full-Year 2027 Weekly Series (`weekly-2027/` — 52 Weeks + Major Sikh Holidays)
+
+Starting **Tue, Jan 5, 2027** through **Tue, Dec 28, 2027**, every single week includes:
+- **1 Production-Ready 4:5 Feed Post (`1080×1350` PNG):** `weekly-2027/week-XX-.../post.png`
+- **1 Companion 9:16 Instagram Story (`1080×1920` PNG):** `weekly-2027/week-XX-.../story.png`
+- **1 Ready-to-Paste `caption.txt`** + full calendar in **[`schedule-2027.csv`](schedule-2027.csv)** (**104 additional PNGs** total!)
+
+### Major 2027 Sikh Holidays Included
+| Week | Date (2027) | Observance | Folder |
+|---|---|---|---|
+| **W02** | Jan 14–15, 2027 | Parkash Purab of Sri Guru Gobind Singh Ji & Maghi (Chali Mukte) | [`week-02-guru-gobind-singh-gurpurab-maghi`](weekly-2027/week-02-guru-gobind-singh-gurpurab-maghi/) |
+| **W11** | Sun, Mar 14, 2027 | Sikh New Year — 1 Chet (Nanakshahi Samvat 559) | [`week-11-sikh-new-year-chet-nanakshahi-559`](weekly-2027/week-11-sikh-new-year-chet-nanakshahi-559/) |
+| **W12** | Tue, Mar 23, 2027 | Hola Mohalla (Mar 23–25, 2027) | [`week-12-hola-mohalla-2027`](weekly-2027/week-12-hola-mohalla-2027/) |
+| **W15** | Wed, Apr 14, 2027 | Vaisakhi & Khalsa Sajna Diwas (1699) | [`week-15-vaisakhi-khalsa-sajna-diwas-2027`](weekly-2027/week-15-vaisakhi-khalsa-sajna-diwas-2027/) |
+| **W24** | Wed, Jun 16, 2027 | Shaheedi Diwas of Sri Guru Arjan Dev Ji & Parkash Purab of Sri Guru Hargobind Sahib Ji (Jun 14) | [`week-24-guru-arjan-dev-shaheedi-guru-hargobind-parkash`](weekly-2027/week-24-guru-arjan-dev-shaheedi-guru-hargobind-parkash/) |
+| **W35** | Wed, Sep 1, 2027 | First Parkash Purab of Sri Guru Granth Sahib Ji (1604) | [`week-35-first-parkash-guru-granth-sahib-ji`](weekly-2027/week-35-first-parkash-guru-granth-sahib-ji/) |
+| **W41** | Oct 9 & Oct 20, 2027 | Parkash Purab of Sri Guru Ram Das Ji & Gurgaddi Diwas of Sri Guru Granth Sahib Ji | [`week-41-guru-ram-das-parkash-gurgaddi-diwas`](weekly-2027/week-41-guru-ram-das-parkash-gurgaddi-diwas/) |
+| **W43** | Fri, Oct 29, 2027 | Bandi Chhor Diwas 2027 | [`week-43-bandi-chhor-diwas-2027`](weekly-2027/week-43-bandi-chhor-diwas-2027/) |
+| **W46** | Sun, Nov 14, 2027 | Parkash Purab of Sri Guru Nanak Dev Ji (Gurpurab 2027) | [`week-46-guru-nanak-gurpurab-2027`](weekly-2027/week-46-guru-nanak-gurpurab-2027/) |
+| **W50** | Tue, Dec 14, 2027 | Shaheedi Diwas of Sri Guru Tegh Bahadur Ji (Hind Di Chadar) | [`week-50-guru-tegh-bahadur-shaheedi-diwas-2027`](weekly-2027/week-50-guru-tegh-bahadur-shaheedi-diwas-2027/) |
+| **W51** | Dec 21–27, 2027 | Shaheedi Week — Chaar Sahibzaade & Mata Gujri Ji | [`week-51-shaheedi-week-chaar-sahibzaade-2027`](weekly-2027/week-51-shaheedi-week-chaar-sahibzaade-2027/) |
 
 ---
 
@@ -37,34 +61,30 @@ instagram-series/
 ├── assets/
 │   └── srpa-logo.png                              # Official SikhRPA crest (from Sikhrpa/sikhrpa)
 ├── media/
-│   ├── jpg/                                       # 65 Instagram-Graph-API-ready sRGB JPEGs
+│   ├── jpg/                                       # 65 Instagram-Graph-API-ready sRGB JPEGs (Dec 2026)
 │   └── reels/                                     # 2 compiled 1080×1920 H.264/AAC MP4 Reels (Posts 03 & 07)
 ├── posts/
-│   ├── post-01-meet-sikhrpa-givingtuesday/        # 6 PNGs (4:5) + caption.txt
-│   ├── post-02-four-universal-safety-rules/       # 6 PNGs (4:5) + caption.txt
-│   ├── post-03-ca-fsc-practice-exam-reel/         # 6 PNGs (9:16) + caption.txt
-│   ├── post-04-ca-first-time-buyer-roadmap/       # 7 PNGs (4:5) + caption.txt
-│   ├── post-05-holiday-safe-storage-pc25100/      # 6 PNGs (4:5) + caption.txt
-│   ├── post-06-daily-legal-regulatory-watch/      # 2 PNGs (4:5 + 9:16) + caption.txt
-│   ├── post-07-pistol-shot-diagnostic-reel/       # 6 PNGs (9:16) + caption.txt
-│   ├── post-08-bilingual-range-trauma-stop-the-bleed/ # 6 PNGs (4:5) + caption.txt
-│   ├── post-09-how-to-zero-optics/                # 6 PNGs (4:5) + caption.txt
-│   ├── post-10-miri-piri-shaheedi-week/           # 6 PNGs (4:5) + caption.txt
-│   ├── post-11-host-2027-gurdwara-workshop/       # 2 PNGs (4:5 + 9:16) + caption.txt
-│   └── post-12-year-end-501c3-giving-appeal/      # 6 PNGs (9:16 + 4:5) + caption.txt
+│   ├── post-01-... through post-12-.../           # Dec 2026 Launch Series (65 PNGs + caption.txt)
+│   └── bonus-guru-nanak-gurpurab-story/           # Nov 2026 Guru Nanak Gurpurab 9:16 Story
+├── weekly-2027/
+│   └── week-01-... through week-52-.../           # Full-Year 2027 (52x post.png + 52x story.png + caption.txt)
 ├── scripts/
 │   ├── styles.py                                  # Brand colors, typography & HTML/CSS canvas frames
 │   ├── diagrams.py                                # Inline SVG generators (REAL ID, DROS, Clock Dial, TQ, Optics)
-│   ├── content_posts_1_to_6.py                    # Slides, captions, hashtags & Story prompts (Posts 01–06)
-│   ├── content_posts_7_to_12.py                   # Slides, captions, hashtags & Story prompts (Posts 07–12)
-│   ├── generate_all.py                            # Master Playwright renderer + policy/overflow validator
+│   ├── content_posts_1_to_6.py                    # Dec 2026 Posts 01–06
+│   ├── content_posts_7_to_12.py                   # Dec 2026 Posts 07–12
+│   ├── weekly_2027_data.py                        # Complete 52-week 2027 data + 2027 Sikh holidays
+│   ├── generate_all.py                            # Dec 2026 Playwright renderer + policy/overflow validator
+│   ├── generate_weekly_2027.py                    # 2027 52-week renderer + unified index.html + schedule-2027.csv
+│   ├── generate_gurpurab_story.py                 # Standalone Guru Nanak Gurpurab Story generator
 │   ├── build_publish_media.py                     # Converts PNGs -> JPEGs, compiles MP4 Reels & builds manifest
 │   └── auto_post.py                               # Zero-dependency Instagram Graph API auto-poster
 ├── AUTO_POST_SETUP.md                             # 5-minute setup guide for GitHub Actions & Meta Graph API
 ├── publish_manifest.json                          # Structured schedule + public HTTPS media URLs
 ├── publish_state.json                             # Idempotent publish tracker (prevents duplicate posts)
-├── index.html                                     # Interactive web gallery (GitHub Pages ready)
-├── schedule.csv                                   # Import-ready schedule with public HTTPS URLs
+├── index.html                                     # Unified interactive web gallery (Dec 2026 + Full-Year 2027)
+├── schedule.csv                                   # Dec 2026 schedule CSV
+├── schedule-2027.csv                              # Full-Year 2027 52-week schedule CSV
 └── README.md
 ```
 
