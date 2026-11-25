@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 """
-SikhRPA Black Friday / Cyber Monday 2026 — Amazon Associates Safety Gear Posts
-Renders 3 affiliate-eligible posts (4:5 carousels + 9:16 Stories) using the
-shared SikhRPA brand system (styles.build_slide_html), writes caption.txt
-files with FTC / Amazon Associates disclosures, and exports sRGB JPEGs.
+SikhRPA Black Friday / Cyber Monday 2026 — Instagram Story Series (9:16)
+Renders 3 affiliate-eligible Story sequences (14 total 1080x1920 frames) using
+the shared SikhRPA brand system (styles.build_slide_html), writes posting
+instructions + ready-to-paste Story link URLs in caption.txt, and exports
+Instagram-ready sRGB JPEGs.
+
+All Story link stickers point directly to the unlisted deals landing page:
+    https://sikhrpa.org/black-friday-2026
 
 Only products already vetted in sikhrpa/data/range-gear.json and
 sikhrpa/data/ppe-products.json are featured. No firearms, ammunition, or
@@ -18,7 +22,6 @@ from __future__ import annotations
 import shutil
 import sys
 from pathlib import Path
-from urllib.parse import quote_plus
 
 from PIL import Image
 from playwright.sync_api import sync_playwright
@@ -30,25 +33,19 @@ from generate_all import audit_policy_guardrails  # noqa: E402
 from styles import ROOT_DIR, build_slide_html, get_logo_data_uri  # noqa: E402
 
 OUT_ROOT = ROOT_DIR / "posts" / "black-friday-2026"
-AMAZON_TAG = "sikhrpa01-20"
-DISCLOSURE_SHORT = "#ad • As an Amazon Associate, SikhRPA earns from qualifying purchases."
+DEALS_URL = "https://sikhrpa.org/black-friday-2026"
 DISCLOSURE_SLIDE = (
     "Affiliate disclosure: As an Amazon Associate, SikhRPA earns from qualifying purchases "
     "at no extra cost to you. Proceeds fund free 501(c)(3) safety education."
 )
 
 
-def amazon_link(query: str) -> str:
-    """Tagged Amazon search link (same format as sikhrpa.org gear-shelf.js fallback)."""
-    return f"https://www.amazon.com/s?k={quote_plus(query)}&tag={AMAZON_TAG}"
-
-
 def product_card(name: str, badge: str, why: str, tone: str = "") -> str:
     tone_cls = f" card-{tone}" if tone else ""
     return f"""
-    <div class="card{tone_cls} stack-sm" style="padding:22px 26px;">
+    <div class="card{tone_cls} stack-sm" style="padding:20px 24px;">
       <div class="row" style="gap:12px;justify-content:space-between;">
-        <div class="h3-title" style="font-size:27px;">{name}</div>
+        <div class="h3-title" style="font-size:26px;">{name}</div>
         <span class="pill" style="font-size:13px;padding:4px 12px;white-space:nowrap;">{badge}</span>
       </div>
       <p class="body-sm">{why}</p>
@@ -56,450 +53,391 @@ def product_card(name: str, badge: str, why: str, tone: str = "") -> str:
     """
 
 
+def compact_card(name: str, badge: str, why: str, tone: str = "") -> str:
+    tone_cls = f" card-{tone}" if tone else ""
+    return f"""
+    <div class="card{tone_cls} stack-sm" style="padding:18px 22px;">
+      <div class="row" style="gap:10px;justify-content:space-between;">
+        <div class="h3-title" style="font-size:23px;">{name}</div>
+        <span class="pill" style="font-size:12px;padding:3px 10px;white-space:nowrap;">{badge}</span>
+      </div>
+      <p class="body-sm" style="font-size:18px;line-height:1.4;">{why}</p>
+    </div>
+    """
+
+
+def sticker_box(label: str, min_height: int = 210) -> str:
+    return f"""
+    <div class="sticker-zone" style="width:100%;min-height:{min_height}px;">
+      <div style="font-size:19px;font-weight:900;letter-spacing:0.12em;color:#fbbf24;text-transform:uppercase;">
+        [ Place Instagram Link Sticker Here ]
+      </div>
+      <div style="font-size:28px;font-weight:800;color:#fff;">{label}</div>
+    </div>
+    """
+
+
 def disclosure_bar() -> str:
     return f"""
-    <div style="font-size:15px;line-height:1.45;color:#94a3b8;text-align:center;max-width:900px;">
+    <div style="font-size:15px;line-height:1.45;color:#94a3b8;text-align:center;max-width:900px;margin:0 auto;">
       {DISCLOSURE_SLIDE}
     </div>
     """
+
+
+def make_story(
+    filename: str,
+    pill_text: str,
+    label: str,
+    inner: str,
+    *,
+    theme: str = "royal",
+    footer_right: str = "TAP LINK STICKER ↑",
+) -> dict:
+    return {
+        "filename": filename,
+        "width": 1080,
+        "height": 1920,
+        "theme": theme,
+        "frame_variant": "story-frame",
+        "pill_text": pill_text,
+        "slide_label": label,
+        "footer_url": "sikhrpa.org/black-friday-2026",
+        "footer_right": footer_right,
+        "body_html": inner,
+    }
 
 
 def get_posts() -> list[dict]:
     logo = get_logo_data_uri()
 
     # =========================================================================
-    # BF-A — Safe Storage Is the Best Gift (Fri, Nov 27)
+    # BF-A — Safe Storage Is the Best Gift (Fri, Nov 27) — 5 Story Frames (9:16)
     # =========================================================================
     post_a = {
         "number": 101,
         "slug": "bf-a-safe-storage-best-gift",
         "date_display": "Fri, Nov 27, 2026 (Black Friday)",
         "time_pst": "8:00 AM PST",
-        "format": "Carousel (5 slides, 4:5) + Story (9:16)",
-        "title": "Black Friday: Safe Storage Is the Best Gift",
-        "url": "https://sikhrpa.org/safe-storage.html",
+        "format": "Instagram Story Sequence (5 frames, 9:16)",
+        "title": "Black Friday Stories: Safe Storage Is the Best Gift",
+        "url": f"{DEALS_URL}#safe-storage",
         "caption": (
-            f"{DISCLOSURE_SHORT}\n\n"
-            "The best Black Friday gift for any firearm-owning household isn't another accessory — it's a lock. 🔒\n\n"
-            "Many of the lockboxes and storage essentials on SikhRPA's vetted Safe Storage list are marked down "
-            "this week. Swipe for our picks:\n"
-            "• Bedside quick-access: Hornady RAPiD Safe 2700KP XL • Vaultek LifePod 2.0\n"
-            "• Budget & vehicle transport: SnapSafe Steel Lock Box XL • Pelican Vault V300 + Master Lock 120Q\n"
-            "• Inside the safe: Eva-Dry E-333 dehumidifier • MTM AC50C lockable can\n\n"
-            "Why it matters: under California Penal Code § 25100, leaving a firearm where a child or prohibited "
-            "person can access it can be a crime. Handguns in a vehicle must be in a locked container or trunk (PC § 25610).\n\n"
-            "Full guide + links: sikhrpa.org/safe-storage.html (link in bio). Prices change fast during Black Friday — "
-            "check the current price before you buy, and confirm your exact model on the CA DOJ roster of approved devices.\n\n"
-            "Every qualifying purchase helps fund free bilingual safety workshops and free cable locks for families.\n\n"
-            "ਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!"
+            "(Instagram Stories — '#ad' and Amazon Associates disclosure are built into every frame.)\n\n"
+            "Paste this URL into the Instagram Link Sticker on Frames 2, 3, 4, and 5:\n"
+            f"  {DEALS_URL}#safe-storage\n"
+            "Suggested sticker text: '2026 Safe Storage Deals'"
         ),
-        "hashtags": (
-            "#ad #SikhRPA #SafeStorage #BlackFriday #HolidayGiftIdeas #HomeSafety #ChildSafety "
-            "#CaliforniaLaw #PC25100 #FirearmSafetyEducation #SikhCommunity #StaySafeBeResponsible"
-        ),
+        "hashtags": "#ad #SikhRPA #SafeStorage #BlackFriday #HomeSafety #PC25100 #SikhCommunity",
         "story_prompt": (
-            "Post story-01-link.png and place a LINK sticker in the dashed zone pointing to "
-            "https://sikhrpa.org/safe-storage.html (sticker text: 'Safe Storage Picks'). "
-            "Keep the '#ad' text visible."
+            "Frame 1: No sticker needed (optional Poll: 'Lockbox or full safe?'). "
+            f"Frames 2–5: Place a native Instagram Link Sticker inside the dashed box pointing to {DEALS_URL}#safe-storage. "
+            "Save all 5 frames to a 'Black Friday' Story Highlight."
         ),
         "links": [
-            ("Safe Storage guide (preferred, has disclosure)", "https://sikhrpa.org/safe-storage.html"),
-            ("Hornady RAPiD 2700KP XL", amazon_link("Hornady RAPiD Safe 2700KP XL")),
-            ("Vaultek LifePod 2.0", amazon_link("Vaultek LifePod 2.0 pistol lockbox safe")),
-            ("SnapSafe Steel Lock Box XL", amazon_link("SnapSafe Lock Box XL steel 75201")),
-            ("Pelican Vault V300", amazon_link("Pelican Vault V300 large pistol case")),
-            ("Master Lock 120Q (4-pack)", amazon_link("Master Lock 120Q brass padlock 4 pack keyed alike")),
-            ("Eva-Dry E-333", amazon_link("Eva-Dry E-333 renewable mini dehumidifier")),
-            ("MTM AC50C", amazon_link("MTM AC50C 50 caliber ammo can")),
+            ("Primary Story Link Sticker (Section 1)", f"{DEALS_URL}#safe-storage"),
+            ("Full 2026 Black Friday Deals Page", DEALS_URL),
         ],
         "slides": [
-            {
-                "filename": "slide-01-cover.png",
-                "theme": "royal",
-                "pill_text": "Black Friday • Safe Storage",
-                "slide_label": "01 / 05",
-                "body_html": """
-                <div class="eyebrow">Black Friday Gift Guide • 2026</div>
-                <h1 class="h1-hero">The Best Gift This Year?<br/><span class="gold">A Lock.</span></h1>
-                <p class="lead">
-                  Lockboxes and storage essentials from SikhRPA's <strong style="color:#fff;">vetted Safe Storage list</strong>
-                  are marked down this week. Protect your family — and support free safety education.
-                </p>
-                <div class="pa-banner">
-                  <div class="pa-text-lg">ਸੁਰੱਖਿਅਤ ਸਟੋਰੇਜ — ਪਰਿਵਾਰ ਲਈ ਸਭ ਤੋਂ ਵਧੀਆ ਤੋਹਫ਼ਾ</div>
-                </div>
-                <div class="stat-row" style="margin-top:6px;">
-                  <div class="stat-box"><div class="stat-val">Bedside</div><div class="stat-lbl">Quick Access</div></div>
-                  <div class="stat-box"><div class="stat-val">Vehicle</div><div class="stat-lbl">PC § 25610</div></div>
-                  <div class="stat-box"><div class="stat-val">Inside</div><div class="stat-lbl">The Safe</div></div>
+            make_story(
+                "story-01-cover.png",
+                "#ad • Black Friday",
+                "1 / 5",
+                f"""
+                <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;">
+                  <img class="brand-logo" style="width:130px;height:130px;border-width:3px;" src="{logo}" alt="SikhRPA"/>
+                  <div class="reel-badge">Black Friday Gift Guide • 2026</div>
+                  <h1 class="h1-hero" style="font-size:70px;">The Best Gift This Year?<br/><span class="gold">A Lock.</span></h1>
+                  <p class="lead" style="font-size:28px;max-width:860px;">
+                    Lockboxes, transport cases &amp; storage essentials from SikhRPA's
+                    <strong style="color:#fff;">vetted Safe Storage list</strong> — marked down this week.
+                  </p>
+                  <div class="pa-banner" style="width:100%;text-align:center;">
+                    <div class="pa-text-lg">ਸੁਰੱਖਿਅਤ ਸਟੋਰੇਜ — ਪਰਿਵਾਰ ਲਈ ਸਭ ਤੋਂ ਵਧੀਆ ਤੋਹਫ਼ਾ</div>
+                  </div>
+                  <div class="stat-row" style="width:100%;">
+                    <div class="stat-box"><div class="stat-val">Bedside</div><div class="stat-lbl">Quick Access</div></div>
+                    <div class="stat-box"><div class="stat-val">Vehicle</div><div class="stat-lbl">PC § 25610</div></div>
+                    <div class="stat-box"><div class="stat-val">Inside</div><div class="stat-lbl">The Safe</div></div>
+                  </div>
+                  {disclosure_bar()}
                 </div>
                 """,
-            },
-            {
-                "filename": "slide-02-bedside.png",
-                "theme": "default",
-                "pill_text": "Bedside Quick-Access",
-                "slide_label": "02 / 05",
-                "body_html": f"""
-                <div class="eyebrow">Pick #1 • ਬਿਸਤਰੇ ਕੋਲ ਤਾਲਾਬੰਦ ਬਕਸਾ</div>
-                <h2 class="h1-lg">Bedside <span class="gold">Quick-Access</span> Lockboxes</h2>
-                <p class="body-text">Fast for you. Locked for curious kids and visiting guests.</p>
-                <div class="stack" style="gap:18px;">
+                footer_right="TAP THROUGH →",
+            ),
+            make_story(
+                "story-02-bedside.png",
+                "#ad • Bedside",
+                "2 / 5",
+                f"""
+                <div class="stack" style="gap:22px;">
+                  <div class="eyebrow">Pick #1 • ਬਿਸਤਰੇ ਕੋਲ ਤਾਲਾਬੰਦ ਬਕਸਾ</div>
+                  <h2 class="h1-lg" style="font-size:56px;">Bedside <span class="gold">Quick-Access</span></h2>
+                  <p class="body-text">Fast for you. Locked for curious kids and visiting guests (CA PC § 25100).</p>
                   {product_card("Hornady RAPiD® Safe 2700KP XL", "14-Gauge Steel",
-                                "RFID tag + backlit keypad + key backup. Exceeds ASTM child-resistance and pry-resistance standards.", "blue")}
+                                "RFID tag + backlit keypad + key backup. Exceeds ASTM child- and pry-resistance standards.", "blue")}
                   {product_card("Vaultek LifePod 2.0", "IP65 Sealed",
-                                "Lightweight, weather-sealed lockbox with keypad, key backup, and steel tether cable — bedside or travel.", "gold")}
-                </div>
-                <div class="card card-emerald" style="padding:18px 24px;">
-                  <p class="body-sm" style="color:#f8fafc;"><strong>Tip:</strong> Never use birthdays as codes, and never leave the backup key on a dresser.</p>
-                </div>
-                """,
-            },
-            {
-                "filename": "slide-03-budget-vehicle.png",
-                "theme": "default",
-                "pill_text": "Budget & Vehicle",
-                "slide_label": "03 / 05",
-                "body_html": f"""
-                <div class="eyebrow">Pick #2 • ਗੱਡੀ ਵਿੱਚ ਸੁਰੱਖਿਅਤ ਆਵਾਜਾਈ</div>
-                <h2 class="h1-lg">Budget &amp; <span class="gold">Vehicle Transport</span></h2>
-                <p class="body-text">California requires handguns in a vehicle to be in a <strong style="color:#fff;">locked container</strong> or trunk (PC § 25610).</p>
-                <div class="stack" style="gap:18px;">
-                  {product_card("SnapSafe Steel Lock Box XL", "Budget Pick",
-                                "16-gauge steel with a 1,500 lb tether cable for car seats or luggage. Choose steel, and confirm your SKU on the CA DOJ roster.", "blue")}
-                  {product_card("Pelican Vault V300", "Crushproof",
-                                "Weather-sealed hard case with stainless padlock hasps for multi-pistol range days and airline check-in.", "gold")}
-                  {product_card("Master Lock 120Q (4-Pack)", "Keyed Alike",
-                                "Slim brass padlocks that fit case hasps and soft-bag zippers. One key opens all four.")}
+                                "Weather-sealed lockbox with keypad, key backup, and steel tether cable — bedside or travel.", "gold")}
+                  <div class="card card-emerald" style="padding:18px 22px;">
+                    <p class="body-sm" style="color:#f8fafc;"><strong>Tip:</strong> Never use birthdays as codes, and never leave backup keys on a dresser.</p>
+                  </div>
+                  {sticker_box("Check Bedside Deals →")}
+                  {disclosure_bar()}
                 </div>
                 """,
-            },
-            {
-                "filename": "slide-04-inside-the-safe.png",
-                "theme": "default",
-                "pill_text": "Inside the Safe",
-                "slide_label": "04 / 05",
-                "body_html": f"""
-                <div class="eyebrow">Pick #3 • Budget-Friendly Add-Ons</div>
-                <h2 class="h1-lg">Finish the Job <span class="gold">Inside the Safe</span></h2>
-                <div class="stack" style="gap:18px;">
-                  {product_card("Eva-Dry E-333 Dehumidifier", "Cordless",
-                                "Silica gel unit that pulls moisture out of safes (up to 333 cu. ft.) to prevent rust in coastal California humidity. Recharge overnight.", "blue")}
-                  {product_card("MTM AC50C Lockable Can", "Padlock Tabs",
-                                "O-ring sealed, stackable can with dual padlock tabs — store ammunition locked and separate from firearms.", "gold")}
-                </div>
-                <div class="pa-banner">
-                  <div class="pa-text-md">ਹਥਿਆਰ ਅਤੇ ਗੋਲੀ-ਸਿੱਕਾ ਹਮੇਸ਼ਾ ਵੱਖ-ਵੱਖ ਤਾਲੇ ਹੇਠ ਰੱਖੋ।</div>
-                  <div class="body-sm" style="margin-top:6px;">Always lock firearms and ammunition separately.</div>
+                theme="default",
+            ),
+            make_story(
+                "story-03-budget-vehicle.png",
+                "#ad • Vehicle",
+                "3 / 5",
+                f"""
+                <div class="stack" style="gap:20px;">
+                  <div class="eyebrow">Pick #2 • ਗੱਡੀ ਵਿੱਚ ਸੁਰੱਖਿਅਤ ਆਵਾਜਾਈ</div>
+                  <h2 class="h1-lg" style="font-size:54px;">Budget &amp; <span class="gold">Vehicle Transport</span></h2>
+                  <p class="body-text">California requires handguns in a vehicle to be in a <strong style="color:#fff;">locked container</strong> or trunk (PC § 25610).</p>
+                  {compact_card("SnapSafe Steel Lock Box XL", "Budget Pick",
+                                "16-gauge steel with 1,500 lb tether cable. Choose steel & confirm your SKU on the CA DOJ roster.", "blue")}
+                  {compact_card("Pelican Vault V300", "Crushproof",
+                                "Weather-sealed hard case with stainless padlock hasps for range days & airline check-in.", "gold")}
+                  {compact_card("Savior Equipment Range Bags", "Lockable Zips",
+                                "Specialist 3-pistol bag & American Classic double rifle case with lockable zipper pulls.")}
+                  {sticker_box("Check Vehicle & Case Deals →", min_height=190)}
+                  {disclosure_bar()}
                 </div>
                 """,
-            },
-            {
-                "filename": "slide-05-cta.png",
-                "theme": "royal",
-                "pill_text": "Link in Bio",
-                "slide_label": "05 / 05",
-                "footer_right": "SAVE &amp; SHARE",
-                "body_html": f"""
+                theme="default",
+            ),
+            make_story(
+                "story-04-inside-the-safe.png",
+                "#ad • In-Safe",
+                "4 / 5",
+                f"""
+                <div class="stack" style="gap:20px;">
+                  <div class="eyebrow">Pick #3 • Budget-Friendly Add-Ons</div>
+                  <h2 class="h1-lg" style="font-size:54px;">Finish the Job <span class="gold">Inside the Safe</span></h2>
+                  {compact_card("Eva-Dry E-333 Dehumidifier", "Cordless",
+                                "Pulls moisture out of safes (up to 333 cu. ft.) to prevent rust in California humidity.", "blue")}
+                  {compact_card("MTM AC50C Lockable Can", "Padlock Tabs",
+                                "O-ring sealed ammo can with dual padlock tabs — store ammunition locked separately.", "gold")}
+                  {compact_card("Master Lock 120Q (4-Pack)", "Keyed Alike",
+                                "Slim brass padlocks for case hasps and soft-bag zippers — one key opens all four.")}
+                  <div class="pa-banner" style="padding:18px 22px;">
+                    <div class="pa-text-md">ਹਥਿਆਰ ਅਤੇ ਗੋਲੀ-ਸਿੱਕਾ ਹਮੇਸ਼ਾ ਵੱਖ-ਵੱਖ ਤਾਲੇ ਹੇਠ ਰੱਖੋ।</div>
+                    <div class="body-sm" style="margin-top:4px;">Always lock firearms and ammunition separately.</div>
+                  </div>
+                  {sticker_box("Check In-Safe Deals →", min_height=180)}
+                  {disclosure_bar()}
+                </div>
+                """,
+                theme="default",
+            ),
+            make_story(
+                "story-05-cta.png",
+                "#ad • Full List",
+                "5 / 5",
+                f"""
                 <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;">
                   <img class="brand-logo" style="width:120px;height:120px;border-width:3px;" src="{logo}" alt="SikhRPA"/>
-                  <div class="eyebrow">Full Guide &amp; Current Prices</div>
-                  <h2 class="h1-lg">sikhrpa.org/<span class="gold">safe-storage</span></h2>
-                  <p class="lead" style="max-width:840px;">
-                    Tap the link in our bio for every pick, CA storage rules, and our Vehicle Transport Checker.
-                    Black Friday prices change hourly — check before you buy.
+                  <div class="eyebrow">All 25 Vetted Black Friday Picks</div>
+                  <h2 class="h1-lg" style="font-size:54px;">Every Qualifying Purchase<br/><span class="gold">Funds Free Safety Clinics</span></h2>
+                  <p class="lead" style="font-size:26px;max-width:860px;">
+                    Tap below for our full 2026 Black Friday safety gear roundup. Prices move fast — confirm live pricing on Amazon before buying.
                   </p>
-                  <div class="grid-2" style="width:100%;">
-                    <div class="card card-gold stack-sm" style="padding:22px;">
-                      <div class="gold" style="font-size:15px;font-weight:900;">EVERY PURCHASE HELPS</div>
-                      <p class="body-sm">Funds free bilingual workshops &amp; free CA DOJ cable locks</p>
-                    </div>
-                    <div class="card card-blue stack-sm" style="padding:22px;">
-                      <div class="blue-lt" style="font-size:15px;font-weight:900;">FREE CABLE LOCK</div>
-                      <p class="body-sm">Email president@sikhrpa.org</p>
-                    </div>
+                  {sticker_box("2026 Black Friday Safety Picks →", min_height=240)}
+                  <div class="card card-blue" style="width:100%;padding:20px 24px;">
+                    <div class="blue-lt" style="font-size:15px;font-weight:900;">NEED A FREE CA DOJ CABLE LOCK?</div>
+                    <p class="body-sm" style="margin-top:6px;color:#f8fafc;">Email <strong>president@sikhrpa.org</strong> — distributed free at every SikhRPA workshop.</p>
                   </div>
-                  {disclosure_bar()}
                   <div class="pa-text-md">ਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ!</div>
-                </div>
-                """,
-            },
-            {
-                "filename": "story-01-link.png",
-                "height": 1920,
-                "theme": "royal",
-                "frame_variant": "story-frame",
-                "pill_text": "#ad • Black Friday",
-                "slide_label": "STORY",
-                "footer_url": "sikhrpa.org/safe-storage.html",
-                "footer_right": "TAP LINK STICKER ↑",
-                "body_html": f"""
-                <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;">
-                  <img class="brand-logo" style="width:120px;height:120px;border-width:3px;" src="{logo}" alt="SikhRPA"/>
-                  <div class="reel-badge">Black Friday Safe Storage Picks</div>
-                  <h1 class="h1-hero" style="font-size:66px;">The Best Gift?<br/><span class="gold">A Lock.</span></h1>
-                  <p class="lead" style="font-size:28px;max-width:860px;">
-                    Bedside lockboxes, vehicle cases &amp; in-safe essentials from our vetted list — marked down this week.
-                  </p>
-                  <div class="sticker-zone" style="width:100%;min-height:300px;">
-                    <div style="font-size:20px;font-weight:900;letter-spacing:0.12em;color:#fbbf24;text-transform:uppercase;">
-                      [ Place Link Sticker Here ]
-                    </div>
-                    <div style="font-size:30px;font-weight:800;color:#fff;">Safe Storage Picks →</div>
-                  </div>
-                  <div class="pa-text-md">ਸੁਰੱਖਿਅਤ ਸਟੋਰੇਜ — ਸਭ ਤੋਂ ਵਧੀਆ ਤੋਹਫ਼ਾ</div>
                   {disclosure_bar()}
                 </div>
                 """,
-            },
+            ),
         ],
     }
 
     # =========================================================================
-    # BF-B — Range PPE for Dastar & Patka Wearers (Sat, Nov 28)
+    # BF-B — Dastar & Patka-Friendly Range PPE (Sat, Nov 28) — 5 Story Frames (9:16)
     # =========================================================================
     post_b = {
         "number": 102,
         "slug": "bf-b-dastar-friendly-range-ppe",
         "date_display": "Sat, Nov 28, 2026",
         "time_pst": "10:00 AM PST",
-        "format": "Carousel (5 slides, 4:5) + Story (9:16)",
-        "title": "Black Friday: Dastar & Patka-Friendly Ear and Eye Protection",
-        "url": "https://sikhrpa.org/range-ppe.html",
+        "format": "Instagram Story Sequence (5 frames, 9:16)",
+        "title": "Black Friday Stories: Dastar & Patka-Friendly Ear and Eye Protection",
+        "url": f"{DEALS_URL}#range-ppe",
         "caption": (
-            f"{DISCLOSURE_SHORT}\n\n"
-            "Over-the-ear muffs can't seal properly over a Dastar — and a broken seal means real hearing damage. "
-            "That's why SikhRPA built a Dastar- and Patka-friendly range protection guide. 🎯👳\n\n"
-            "Many of our vetted picks are marked down for Black Friday weekend. Swipe for:\n"
-            "• Electronic earbuds (zero Dastar contact): ISOtunes Sport ADVANCE BT & CALIBER BT • Walker's Disrupter • 3M PELTOR EEP-100\n"
-            "• Foam plugs & neckband muffs: 3M E-A-Rsoft FX • Mack's Ultra Soft • Sordin Supreme Pro-X\n"
-            "• ANSI Z87.1+ eyewear with thin temples: ESS Crossbow Suppressor • 3M SecureFit 400 • NoCry OTG (over prescription glasses)\n\n"
-            "Indoor range? Double up: foam plugs + electronic protection.\n\n"
-            "Full guide, fit tips & links: sikhrpa.org/range-ppe.html (link in bio). Prices change fast — check the current price before you buy.\n\n"
-            "Every qualifying purchase helps fund free bilingual safety education.\n\n"
-            "ਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!"
+            "(Instagram Stories — '#ad' and Amazon Associates disclosure are built into every frame.)\n\n"
+            "Paste this URL into the Instagram Link Sticker on Frames 2, 3, 4, and 5:\n"
+            f"  {DEALS_URL}#range-ppe\n"
+            "Suggested sticker text: 'Dastar-Friendly PPE Deals'"
         ),
-        "hashtags": (
-            "#ad #SikhRPA #HearingProtection #EyeProtection #Dastar #Patka #SikhCommunity "
-            "#BlackFriday #RangeSafety #FirearmSafetyEducation #CaliforniaSikhs #StaySafeBeResponsible"
-        ),
+        "hashtags": "#ad #SikhRPA #HearingProtection #EyeProtection #Dastar #Patka #BlackFriday #SikhCommunity",
         "story_prompt": (
-            "Post story-01-link.png and place a LINK sticker in the dashed zone pointing to "
-            "https://sikhrpa.org/range-ppe.html (sticker text: 'Dastar-Friendly PPE'). "
-            "Add a Poll sticker: 'Earbuds or neckband muffs?'"
+            "Frame 1: No sticker needed (optional Poll: 'Earbuds or neckband muffs?'). "
+            f"Frames 2–5: Place a native Instagram Link Sticker inside the dashed box pointing to {DEALS_URL}#range-ppe. "
+            "Save to your 'Black Friday' Story Highlight."
         ),
         "links": [
-            ("Range PPE guide (preferred, has disclosure)", "https://sikhrpa.org/range-ppe.html"),
-            ("ISOtunes Sport ADVANCE BT", amazon_link("ISOtunes Sport ADVANCE BT shooting earbuds")),
-            ("ISOtunes Sport CALIBER BT", amazon_link("ISOtunes Sport CALIBER BT shooting earbuds")),
-            ("Walker's Disrupter", amazon_link("Walker's Disrupter Bluetooth earbuds")),
-            ("3M PELTOR EEP-100", amazon_link("3M PELTOR EEP-100 electronic earplugs")),
-            ("3M E-A-Rsoft FX", amazon_link("3M E-A-Rsoft FX earplugs NRR 33")),
-            ("Mack's Ultra Soft", amazon_link("Mack's Ultra Soft Foam Earplugs 33dB")),
-            ("Sordin Supreme Pro-X Neckband", amazon_link("Sordin Supreme Pro-X neckband")),
-            ("ESS Crossbow Suppressor", amazon_link("ESS Crossbow Suppressor safety glasses")),
-            ("3M SecureFit 400", amazon_link("3M SecureFit 400 safety glasses anti-fog")),
-            ("NoCry OverSpecs OTG", amazon_link("NoCry over the glasses safety glasses")),
+            ("Primary Story Link Sticker (Section 2)", f"{DEALS_URL}#range-ppe"),
+            ("Full 2026 Black Friday Deals Page", DEALS_URL),
         ],
         "slides": [
-            {
-                "filename": "slide-01-cover.png",
-                "theme": "royal",
-                "pill_text": "Black Friday • Range PPE",
-                "slide_label": "01 / 05",
-                "body_html": """
-                <div class="eyebrow">Dastar &amp; Patka-Friendly • Black Friday Picks</div>
-                <h1 class="h1-hero">Muffs Don't Seal<br/><span class="gold">Over a Dastar.</span></h1>
-                <p class="lead">
-                  A broken seal means real hearing damage. These vetted ear &amp; eye protection picks
-                  fit <strong style="color:#fff;">with</strong> your Dastar or Patka — and many are marked down this weekend.
-                </p>
-                <div class="pa-banner">
-                  <div class="pa-text-lg">ਦਸਤਾਰ ਅਤੇ ਪਟਕੇ ਨਾਲ ਕੰਨਾਂ ਅਤੇ ਅੱਖਾਂ ਦੀ ਸੁਰੱਖਿਆ</div>
-                </div>
-                <div class="stat-row" style="margin-top:6px;">
-                  <div class="stat-box"><div class="stat-val">In-Ear</div><div class="stat-lbl">Zero Contact</div></div>
-                  <div class="stat-box"><div class="stat-val">Neckband</div><div class="stat-lbl">Behind Head</div></div>
-                  <div class="stat-box"><div class="stat-val">Z87.1+</div><div class="stat-lbl">Thin Temples</div></div>
-                </div>
-                """,
-            },
-            {
-                "filename": "slide-02-electronic-earbuds.png",
-                "theme": "default",
-                "pill_text": "Electronic In-Ear",
-                "slide_label": "02 / 05",
-                "body_html": f"""
-                <div class="eyebrow">Pick #1 • Hear Range Commands, Block Gunshots</div>
-                <h2 class="h1-lg">Electronic <span class="gold">Earbuds</span></h2>
-                <div class="grid-2" style="gap:16px;">
-                  {product_card("ISOtunes ADVANCE BT", "NRR 26",
-                                "Tactical Sound Control, IP67, neck tether so you never drop a bud.", "blue")}
-                  {product_card("ISOtunes CALIBER BT", "NRR 25",
-                                "Fully wireless with pocket charging case. Zero bulk under a Dastar.", "gold")}
-                  {product_card("Walker's Disrupter", "NRR 24",
-                                "360° mics and fast impulse suppression. Always use the foam tips on the line.")}
-                  {product_card("3M PELTOR EEP-100", "NRR 23–30",
-                                "Simple one-button workhorse, 16-hour battery, IP54.")}
+            make_story(
+                "story-01-cover.png",
+                "#ad • Black Friday",
+                "1 / 5",
+                f"""
+                <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;">
+                  <img class="brand-logo" style="width:130px;height:130px;border-width:3px;" src="{logo}" alt="SikhRPA"/>
+                  <div class="reel-badge">Dastar &amp; Patka-Friendly PPE</div>
+                  <h1 class="h1-hero" style="font-size:68px;">Muffs Don't Seal<br/><span class="gold">Over a Dastar.</span></h1>
+                  <p class="lead" style="font-size:28px;max-width:860px;">
+                    A broken seal means permanent hearing damage. These vetted ear &amp; eye picks fit
+                    <strong style="color:#fff;">with</strong> Sikh headwear — check Black Friday pricing inside.
+                  </p>
+                  <div class="pa-banner" style="width:100%;text-align:center;">
+                    <div class="pa-text-lg">ਦਸਤਾਰ ਅਤੇ ਪਟਕੇ ਨਾਲ ਕੰਨਾਂ ਅਤੇ ਅੱਖਾਂ ਦੀ ਸੁਰੱਖਿਆ</div>
+                  </div>
+                  <div class="stat-row" style="width:100%;">
+                    <div class="stat-box"><div class="stat-val">In-Ear</div><div class="stat-lbl">Zero Contact</div></div>
+                    <div class="stat-box"><div class="stat-val">Neckband</div><div class="stat-lbl">Behind Head</div></div>
+                    <div class="stat-box"><div class="stat-val">Z87.1+</div><div class="stat-lbl">Thin Temples</div></div>
+                  </div>
+                  {disclosure_bar()}
                 </div>
                 """,
-            },
-            {
-                "filename": "slide-03-plugs-neckband.png",
-                "theme": "default",
-                "pill_text": "Plugs & Neckband",
-                "slide_label": "03 / 05",
-                "body_html": f"""
-                <div class="eyebrow">Pick #2 • Budget &amp; Double-Up Layers</div>
-                <h2 class="h1-lg">Foam Plugs &amp; <span class="gold">Neckband Muffs</span></h2>
-                <div class="stack" style="gap:16px;">
-                  {product_card("3M E-A-Rsoft FX", "NRR 33",
-                                "Soft slow-recovery foam. Great alone or as the inner layer when doubling up.", "blue")}
-                  {product_card("Mack's Ultra Soft Foam", "NRR 33",
-                                "Ultra-low-pressure foam — comfortable for long 2–3 hour classes.", "blue")}
-                  {product_card("Sordin Supreme Pro-X (Neckband)", "Behind the Head",
-                                "Electronic muffs with the band behind the head — works with a Patka or ears-exposed Keski.", "gold")}
-                </div>
-                <div class="card card-emerald" style="padding:18px 24px;">
-                  <p class="body-sm" style="color:#f8fafc;"><strong>Indoor range?</strong> Double up: foam plugs + electronic protection.</p>
-                </div>
-                """,
-            },
-            {
-                "filename": "slide-04-eyewear.png",
-                "theme": "default",
-                "pill_text": "ANSI Z87.1+ Eyewear",
-                "slide_label": "04 / 05",
-                "body_html": f"""
-                <div class="eyebrow">Pick #3 • ਅੱਖਾਂ ਦੀ ਸੁਰੱਖਿਆ</div>
-                <h2 class="h1-lg">Eyewear That <span class="gold">Slides Along a Dastar</span></h2>
-                <div class="stack" style="gap:16px;">
-                  {product_card("ESS Crossbow Suppressor", "Z87.1+ • MIL",
-                                "Wafer-thin temples slide along a Dastar and under muffs without hot spots. Rx insert available.", "blue")}
-                  {product_card("3M SecureFit 400", "Budget Pick",
-                                "Featherweight with flat flexible temples — great starter pair and spares for guests.", "gold")}
-                  {product_card("NoCry OverSpecs (OTG)", "Over Rx Glasses",
-                                "Wraparound Z87.1+ shield that fits over everyday prescription frames.")}
+                footer_right="TAP THROUGH →",
+            ),
+            make_story(
+                "story-02-electronic-earbuds.png",
+                "#ad • Electronic",
+                "2 / 5",
+                f"""
+                <div class="stack" style="gap:18px;">
+                  <div class="eyebrow">Pick #1 • Hear Commands, Block Gunshots</div>
+                  <h2 class="h1-lg" style="font-size:54px;">Electronic <span class="gold">Earbuds</span></h2>
+                  <div class="grid-2" style="gap:14px;">
+                    {compact_card("ISOtunes ADVANCE BT", "NRR 26",
+                                  "Tactical Sound Control, IP67, neck tether so you never drop a bud.", "blue")}
+                    {compact_card("ISOtunes CALIBER BT", "NRR 25",
+                                  "True wireless with pocket charging case. Zero bulk under a Dastar.", "gold")}
+                    {compact_card("Walker's Disrupter", "NRR 24",
+                                  "360° mics & impulse suppression. Always use the foam tips on the line.")}
+                    {compact_card("3M PELTOR EEP-100", "NRR 23–30",
+                                  "Simple one-button workhorse, 16-hour battery, IP54.")}
+                  </div>
+                  {sticker_box("Check Electronic Earbud Deals →", min_height=200)}
+                  {disclosure_bar()}
                 </div>
                 """,
-            },
-            {
-                "filename": "slide-05-cta.png",
-                "theme": "royal",
-                "pill_text": "Link in Bio",
-                "slide_label": "05 / 05",
-                "footer_right": "SAVE &amp; SHARE",
-                "body_html": f"""
+                theme="default",
+            ),
+            make_story(
+                "story-03-plugs-neckband.png",
+                "#ad • Plugs & Neckband",
+                "3 / 5",
+                f"""
+                <div class="stack" style="gap:18px;">
+                  <div class="eyebrow">Pick #2 • Reusable &amp; Double-Up Layers</div>
+                  <h2 class="h1-lg" style="font-size:52px;">Plugs &amp; <span class="gold">Neckband Muffs</span></h2>
+                  {compact_card("Sordin Supreme Pro-X (Neckband)", "Behind Head",
+                                "Electronic muffs with band behind the head — fits a Patka or ears-exposed Keski.", "gold")}
+                  {compact_card("Decibullz Custom Molded", "NRR 31",
+                                "Boil-and-shape earpieces that lock into your exact ear contour in 5 minutes.", "blue")}
+                  {compact_card("3M E-A-Rsoft FX &amp; Mack's Ultra Soft", "NRR 33",
+                                "Max-NRR soft foam plugs — great standalone or as the inner layer indoors.")}
+                  <div class="card card-emerald" style="padding:16px 22px;">
+                    <p class="body-sm" style="color:#f8fafc;"><strong>Indoor range?</strong> Double up: foam plugs + electronic protection.</p>
+                  </div>
+                  {sticker_box("Check Plugs & Neckband Deals →", min_height=180)}
+                  {disclosure_bar()}
+                </div>
+                """,
+                theme="default",
+            ),
+            make_story(
+                "story-04-eyewear.png",
+                "#ad • Eyewear",
+                "4 / 5",
+                f"""
+                <div class="stack" style="gap:18px;">
+                  <div class="eyebrow">Pick #3 • ਅੱਖਾਂ ਦੀ ਸੁਰੱਖਿਆ (ANSI Z87.1+)</div>
+                  <h2 class="h1-lg" style="font-size:52px;">Thin-Temple <span class="gold">Range Eyewear</span></h2>
+                  <div class="grid-2" style="gap:14px;">
+                    {compact_card("ESS Crossbow Suppressor", "Z87.1+ MIL",
+                                  "Wafer-thin temples slide cleanly along a Dastar without hot spots.", "blue")}
+                    {compact_card("Wiley X Saber Advanced", "3-Lens Kit",
+                                  "Clear, Smoke & Rust ballistic lenses + adjustable temples.", "gold")}
+                    {compact_card("3M SecureFit 400", "Budget Pick",
+                                  "Flat flexible temples — ideal starter pair & spares for guests.")}
+                    {compact_card("NoCry OverSpecs", "Over Rx",
+                                  "Wraparound Z87.1+ shield that fits over everyday glasses.")}
+                  </div>
+                  {sticker_box("Check Range Eyewear Deals →", min_height=200)}
+                  {disclosure_bar()}
+                </div>
+                """,
+                theme="default",
+            ),
+            make_story(
+                "story-05-cta.png",
+                "#ad • Full List",
+                "5 / 5",
+                f"""
                 <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;">
                   <img class="brand-logo" style="width:120px;height:120px;border-width:3px;" src="{logo}" alt="SikhRPA"/>
-                  <div class="eyebrow">Full Guide &amp; Current Prices</div>
-                  <h2 class="h1-lg">sikhrpa.org/<span class="gold">range-ppe</span></h2>
-                  <p class="lead" style="max-width:840px;">
-                    Use our <strong style="color:#fff;">Build Your Range PPE Setup</strong> tool to match protection to your Dastar,
-                    Patka, or glasses. Black Friday prices change hourly — check before you buy.
-                  </p>
+                  <div class="eyebrow">Dastar &amp; Patka PPE Deals</div>
+                  <h2 class="h1-lg" style="font-size:54px;">Protect Your Hearing —<br/><span class="gold">It Never Comes Back.</span></h2>
                   <div class="pa-banner" style="width:100%;text-align:center;border-left-width:1px;border-top:4px solid #f59e0b;">
                     <div class="pa-text-lg">ਆਪਣੀ ਸੁਣਨ ਸ਼ਕਤੀ ਦੀ ਰੱਖਿਆ ਕਰੋ — ਇਹ ਮੁੜ ਵਾਪਸ ਨਹੀਂ ਆਉਂਦੀ।</div>
-                    <div class="body-sm" style="margin-top:6px;">Protect your hearing — it never comes back.</div>
                   </div>
-                  {disclosure_bar()}
-                  <div class="pa-text-md">ਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ!</div>
-                </div>
-                """,
-            },
-            {
-                "filename": "story-01-link.png",
-                "height": 1920,
-                "theme": "royal",
-                "frame_variant": "story-frame",
-                "pill_text": "#ad • Black Friday",
-                "slide_label": "STORY",
-                "footer_url": "sikhrpa.org/range-ppe.html",
-                "footer_right": "TAP LINK STICKER ↑",
-                "body_html": f"""
-                <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;">
-                  <img class="brand-logo" style="width:120px;height:120px;border-width:3px;" src="{logo}" alt="SikhRPA"/>
-                  <div class="reel-badge">Dastar-Friendly Range PPE</div>
-                  <h1 class="h1-hero" style="font-size:64px;">Muffs Don't Seal<br/><span class="gold">Over a Dastar.</span></h1>
-                  <p class="lead" style="font-size:28px;max-width:860px;">
-                    Electronic earbuds, neckband muffs &amp; thin-temple eyewear — vetted picks marked down this weekend.
+                  {sticker_box("Dastar-Friendly PPE Deals →", min_height=240)}
+                  <p class="body-sm" style="max-width:820px;">
+                    Black Friday prices change hourly — check current pricing on Amazon. Every qualifying purchase helps fund SikhRPA's free 501(c)(3) education.
                   </p>
-                  <div class="sticker-zone" style="width:100%;min-height:300px;">
-                    <div style="font-size:20px;font-weight:900;letter-spacing:0.12em;color:#fbbf24;text-transform:uppercase;">
-                      [ Place Link Sticker Here ]
-                    </div>
-                    <div style="font-size:30px;font-weight:800;color:#fff;">Dastar-Friendly PPE →</div>
-                  </div>
-                  <div class="pa-text-md">ਦਸਤਾਰ ਅਤੇ ਪਟਕੇ ਨਾਲ ਕੰਨਾਂ ਅਤੇ ਅੱਖਾਂ ਦੀ ਸੁਰੱਖਿਆ</div>
                   {disclosure_bar()}
                 </div>
                 """,
-            },
+            ),
         ],
     }
 
     # =========================================================================
-    # BF-C — Cyber Monday Safety Stocking Stuffers (Mon, Nov 30) — Story set
+    # BF-C — Cyber Monday Safety Stocking Stuffers (Mon, Nov 30) — 4 Story Frames
     # =========================================================================
-    def story(filename: str, label: str, footer_url: str, inner: str, footer_right: str = "TAP LINK STICKER ↑") -> dict:
-        return {
-            "filename": filename,
-            "height": 1920,
-            "theme": "royal",
-            "frame_variant": "story-frame",
-            "pill_text": "#ad • Cyber Monday",
-            "slide_label": label,
-            "footer_url": footer_url,
-            "footer_right": footer_right,
-            "body_html": inner,
-        }
-
-    def sticker(text: str) -> str:
-        return f"""
-        <div class="sticker-zone" style="width:100%;min-height:220px;">
-          <div style="font-size:20px;font-weight:900;letter-spacing:0.12em;color:#fbbf24;text-transform:uppercase;">
-            [ Place Link Sticker Here ]
-          </div>
-          <div style="font-size:28px;font-weight:800;color:#fff;">{text}</div>
-        </div>
-        """
-
     post_c = {
         "number": 103,
         "slug": "bf-c-cyber-monday-stocking-stuffers",
         "date_display": "Mon, Nov 30, 2026 (Cyber Monday)",
         "time_pst": "9:00 AM PST (stagger frames through the day)",
-        "format": "Story Set (4 frames, 9:16)",
-        "title": "Cyber Monday: Safety Stocking Stuffers",
-        "url": "https://sikhrpa.org/safe-storage.html",
+        "format": "Instagram Story Sequence (4 frames, 9:16)",
+        "title": "Cyber Monday Stories: Safety Stocking Stuffers",
+        "url": f"{DEALS_URL}#stocking-stuffers",
         "caption": (
-            "(Stories have no caption — the '#ad' disclosure is printed on every frame.)\n\n"
-            "Optional feed cross-post caption:\n"
-            f"{DISCLOSURE_SHORT}\n\n"
-            "Last call for Cyber Monday: small safety gifts that every range bag needs — foam earplugs, "
-            "keyed-alike padlocks, lead-removal wipes, and post-range cleaning basics. Links in our Story & bio.\n\n"
-            "ਸੁਰੱਖਿਅਤ ਰਹੋ, ਜ਼ਿੰਮੇਵਾਰ ਬਣੋ! — Stay Safe, Be Responsible!"
+            "(Instagram Stories — '#ad' and Amazon Associates disclosure are built into every frame.)\n\n"
+            "Paste this URL into the Instagram Link Sticker on Frames 2, 3, and 4:\n"
+            f"  {DEALS_URL}#stocking-stuffers\n"
+            "Suggested sticker text: 'Cyber Monday Stocking Stuffers'"
         ),
         "hashtags": "#ad #SikhRPA #CyberMonday #StockingStuffers #RangeSafety #HomeSafety #SikhCommunity",
         "story_prompt": (
-            "Frame 1: no sticker needed (or a Countdown sticker to midnight). "
-            "Frame 2: link → https://sikhrpa.org/range-ppe.html. "
-            "Frames 3–4: link → https://sikhrpa.org/safe-storage.html. "
-            "Add all 4 to a 'Gift Guide' Highlight afterwards."
+            "Frame 1: No sticker needed (optional Countdown sticker to Cyber Monday midnight). "
+            f"Frames 2–4: Place a native Instagram Link Sticker inside the dashed box pointing to {DEALS_URL}#stocking-stuffers. "
+            "Save to your 'Black Friday' Story Highlight."
         ),
         "links": [
-            ("Range PPE guide", "https://sikhrpa.org/range-ppe.html"),
-            ("Safe Storage guide", "https://sikhrpa.org/safe-storage.html"),
-            ("Mack's Ultra Soft", amazon_link("Mack's Ultra Soft Foam Earplugs 33dB")),
-            ("3M E-A-Rsoft FX", amazon_link("3M E-A-Rsoft FX earplugs NRR 33")),
-            ("Master Lock 120Q (4-pack)", amazon_link("Master Lock 120Q brass padlock 4 pack keyed alike")),
-            ("D-Wipe lead-removing towels", amazon_link("ESCA Tech D-Wipe lead removing towels")),
-            ("Break-Free CLP", amazon_link("Break-Free CLP cleaner lubricant preservative")),
-            ("Hoppe's BoreSnake", amazon_link("Hoppe's BoreSnake bore cleaner")),
-            ("Eva-Dry E-333", amazon_link("Eva-Dry E-333 renewable mini dehumidifier")),
+            ("Primary Story Link Sticker (Section 3)", f"{DEALS_URL}#stocking-stuffers"),
+            ("Full 2026 Black Friday Deals Page", DEALS_URL),
         ],
         "slides": [
-            story("story-01-cover.png", "1 / 4", "sikhrpa.org", f"""
+            make_story(
+                "story-01-cover.png",
+                "#ad • Cyber Monday",
+                "1 / 4",
+                f"""
                 <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:30px;">
                   <img class="brand-logo" style="width:130px;height:130px;border-width:3px;" src="{logo}" alt="SikhRPA"/>
                   <div class="reel-badge">Cyber Monday • Last Call</div>
@@ -513,8 +451,14 @@ def get_posts() -> list[dict]:
                   </div>
                   {disclosure_bar()}
                 </div>
-            """, footer_right="TAP THROUGH →"),
-            story("story-02-ears-locks.png", "2 / 4", "sikhrpa.org/range-ppe.html", f"""
+                """,
+                footer_right="TAP THROUGH →",
+            ),
+            make_story(
+                "story-02-ears-locks.png",
+                "#ad • Cyber Monday",
+                "2 / 4",
+                f"""
                 <div class="stack" style="gap:24px;">
                   <div class="eyebrow">Stuffer #1 &amp; #2</div>
                   <h2 class="h1-lg" style="font-size:58px;">Ears &amp; <span class="gold">Locks</span></h2>
@@ -522,11 +466,17 @@ def get_posts() -> list[dict]:
                                 "Zero Dastar contact. Toss a bulk pack in every range bag and car.", "blue")}
                   {product_card("Master Lock 120Q (4-Pack)", "Keyed Alike",
                                 "Lock range-bag zippers and case hasps — one key opens all four.", "gold")}
-                  {sticker("Dastar-Friendly Ear Pro →")}
+                  {sticker_box("Check Stocking Stuffer Deals →", min_height=220)}
                   {disclosure_bar()}
                 </div>
-            """),
-            story("story-03-after-range.png", "3 / 4", "sikhrpa.org/safe-storage.html", f"""
+                """,
+                theme="default",
+            ),
+            make_story(
+                "story-03-after-range.png",
+                "#ad • Cyber Monday",
+                "3 / 4",
+                f"""
                 <div class="stack" style="gap:24px;">
                   <div class="eyebrow">Stuffer #3 &amp; #4</div>
                   <h2 class="h1-lg" style="font-size:58px;">After the <span class="gold">Range</span></h2>
@@ -534,26 +484,35 @@ def get_posts() -> list[dict]:
                                 "Wipe lead residue off hands &amp; face before driving home or hugging the kids.", "emerald")}
                   {product_card("Break-Free CLP + Hoppe's BoreSnake", "Clean &amp; Protect",
                                 "Quick post-range cleaning and a rust-inhibiting film before storage.", "blue")}
-                  {sticker("Range Care Essentials →")}
+                  {sticker_box("Check Range Care Deals →", min_height=220)}
                   {disclosure_bar()}
                 </div>
-            """),
-            story("story-04-in-the-safe.png", "4 / 4", "sikhrpa.org/safe-storage.html", f"""
-                <div class="stack" style="gap:24px;">
-                  <div class="eyebrow">Stuffer #5</div>
-                  <h2 class="h1-lg" style="font-size:58px;">Inside <span class="gold">the Safe</span></h2>
-                  {product_card("Eva-Dry E-333 Dehumidifier", "Cordless",
-                                "Keeps safes dry in coastal California humidity. Recharge overnight, reuse for years.", "blue")}
-                  <div class="card card-gold" style="padding:22px 26px;">
-                    <p class="body-text" style="color:#f8fafc;">
-                      <strong>No safe yet?</strong> SikhRPA gives free CA DOJ cable locks at every workshop —
-                      email <strong>president@sikhrpa.org</strong>.
+                """,
+                theme="default",
+            ),
+            make_story(
+                "story-04-in-the-safe.png",
+                "#ad • Cyber Monday",
+                "4 / 4",
+                f"""
+                <div class="stack" style="gap:20px;">
+                  <div class="eyebrow">Stuffer #5 &amp; #6</div>
+                  <h2 class="h1-lg" style="font-size:54px;">Safe &amp; <span class="gold">Dry-Fire</span></h2>
+                  {compact_card("Eva-Dry E-333 + MTM AC50C Can", "Dry &amp; Locked",
+                                "Rechargeable dehumidifier prevents rust; lockable can keeps ammo stored separately.", "blue")}
+                  {compact_card("Tipton Snap Caps", "Dry-Fire Practice",
+                                "Inert dummy rounds for safe at-home trigger practice and malfunction drills.", "gold")}
+                  <div class="card card-emerald" style="padding:18px 22px;">
+                    <p class="body-sm" style="color:#f8fafc;">
+                      <strong>Need a free cable lock?</strong> Email <strong>president@sikhrpa.org</strong>.
                     </p>
                   </div>
-                  {sticker("All Safe Storage Picks →")}
+                  {sticker_box("All 2026 Black Friday Picks →", min_height=200)}
                   {disclosure_bar()}
                 </div>
-            """),
+                """,
+                theme="default",
+            ),
         ],
     }
 
@@ -568,37 +527,27 @@ def write_caption(post: dict, out_dir: Path) -> None:
         f"{post['title']}\n"
         f"Schedule: {post['date_display']} • {post['time_pst']}\n"
         f"Format:   {post['format']}\n"
-        f"Link:     {post['url']} (set as link in bio)\n"
+        f"Link:     {post['url']}\n"
         f"Media:    {media}\n"
         "========================================================================\n\n"
-        "--- CAPTION (READY TO PASTE) ---\n\n"
+        "--- STORY LINK STICKER SETUP ---\n\n"
         f"{post['caption']}\n\n"
-        "--- HASHTAGS (READY TO PASTE) ---\n\n"
-        f"{post['hashtags']}\n\n"
-        "--- INSTAGRAM STORY PROMPT ---\n\n"
+        "--- STORY POSTING INSTRUCTIONS ---\n\n"
         f"{post['story_prompt']}\n\n"
-        "--- AFFILIATE LINKS (tag: sikhrpa01-20) ---\n"
-        "Prefer the sikhrpa.org page (it carries the required disclosure). Direct Amazon links\n"
-        "are fine in Story link stickers as long as '#ad' stays visible. Do not use third-party\n"
-        "URL shorteners for Amazon links.\n\n"
+        "--- OPTIONAL HASHTAGS (if adding a text tag) ---\n\n"
+        f"{post['hashtags']}\n\n"
+        "--- UNLISTED DEALS PAGE URLS (Amazon tag: sikhrpa01-20 built in) ---\n\n"
         f"{links}\n\n"
         "--- BEFORE POSTING ---\n"
-        "• Open each product link and confirm it is actually discounted today.\n"
+        "• Open https://sikhrpa.org/black-friday-2026 and check a few items on Amazon to confirm deals are active.\n"
+        "• Place Instagram's native Link Sticker inside the dashed box on each Story frame.\n"
         "• Do not add dollar prices for Amazon items (Amazon Operating Agreement).\n"
-        "• Keep '#ad' as the first line of the caption (FTC: disclosure above the 'more' fold).\n"
     )
     (out_dir / "caption.txt").write_text(content, encoding="utf-8")
 
 
 def main() -> int:
     posts = get_posts()
-    # Normalise slide defaults
-    for post in posts:
-        for s in post["slides"]:
-            s.setdefault("width", 1080)
-            s.setdefault("height", 1350)
-            s.setdefault("footer_url", "sikhrpa.org")
-            s.setdefault("footer_right", "SWIPE →")
 
     issues = audit_policy_guardrails(posts)
     if issues:
@@ -619,6 +568,8 @@ def main() -> int:
         page = browser.new_context(device_scale_factor=1).new_page()
         for post in posts:
             out_dir = OUT_ROOT / post["slug"]
+            if out_dir.exists():
+                shutil.rmtree(out_dir)
             (out_dir / "jpg").mkdir(parents=True, exist_ok=True)
             write_caption(post, out_dir)
             for s in post["slides"]:
@@ -626,10 +577,15 @@ def main() -> int:
                 page.set_viewport_size({"width": w, "height": h})
                 page.set_content(
                     build_slide_html(
-                        body_html=s["body_html"], width=w, height=h,
-                        pill_text=s.get("pill_text", ""), slide_label=s.get("slide_label", ""),
-                        footer_url=s["footer_url"], footer_right=s["footer_right"],
-                        theme=s.get("theme", "default"), frame_variant=s.get("frame_variant", ""),
+                        body_html=s["body_html"],
+                        width=w,
+                        height=h,
+                        pill_text=s["pill_text"],
+                        slide_label=s["slide_label"],
+                        footer_url=s["footer_url"],
+                        footer_right=s["footer_right"],
+                        theme=s["theme"],
+                        frame_variant=s["frame_variant"],
                     ),
                     wait_until="load",
                 )
@@ -643,7 +599,7 @@ def main() -> int:
                 png = out_dir / s["filename"]
                 page.screenshot(path=str(png), type="png")
                 Image.open(png).convert("RGB").save(out_dir / "jpg" / png.with_suffix(".jpg").name, quality=95)
-                print(f"  Rendered {post['slug']}/{s['filename']}")
+                print(f"  Rendered {post['slug']}/{s['filename']} ({w}x{h})")
         browser.close()
 
     if warnings:
@@ -651,7 +607,7 @@ def main() -> int:
         for w_ in warnings:
             print("  -", w_)
         return 2
-    print("\n✓ All Black Friday graphics rendered with zero overflow.")
+    print("\n✓ All 14 Black Friday Story graphics rendered with zero overflow.")
     return 0
 
 
