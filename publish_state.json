@@ -2,10 +2,10 @@
   "bf-osight-se": {
     "slug": "bf-test-osight-se",
     "scheduled_at_iso": "2026-11-25T22:40:00-08:00",
-    "status": "pending",
-    "published_at": null,
-    "ig_media_id": null,
-    "story_media_id": null
+    "status": "published",
+    "published_at": "2026-11-26T06:43:56.608129+00:00",
+    "ig_media_id": "17916653631484973",
+    "story_media_id": "17916653631484973"
   },
   "post-01": {
     "slug": "post-01-meet-sikhrpa-givingtuesday",
