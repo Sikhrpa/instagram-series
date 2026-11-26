@@ -50,6 +50,7 @@ jobs:
           SMTP_HOST: ${{ vars.SMTP_HOST || 'smtp.gmail.com' }}
           SMTP_PORT: ${{ vars.SMTP_PORT || '465' }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM: ${{ vars.RESEND_FROM || '' }}
           PREVIEW_TO_EMAIL: ${{ vars.PREVIEW_TO_EMAIL || 'tarun@sikhrpa.org' }}
         run: |
           set -euo pipefail

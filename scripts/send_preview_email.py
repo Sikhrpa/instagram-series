@@ -258,7 +258,7 @@ def send_email(to_email: str, subject: str, plain_text: str, html_body: str) -> 
         return f"SMTP ({host}:{port})"
 
     if resend_key:
-        from_addr = os.environ.get("RESEND_FROM", "SikhRPA Auto-Poster <noreply@sikhrpa.org>").strip()
+        from_addr = os.environ.get("RESEND_FROM", "").strip() or "SikhRPA Auto-Poster <onboarding@resend.dev>"
         payload = json.dumps({
             "from": from_addr,
             "to": [to_email],
