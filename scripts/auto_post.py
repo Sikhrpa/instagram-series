@@ -441,7 +441,9 @@ def main() -> int:
         media_id, story_id = publish_post(
             post, uid, token, api_base=api_base, publish_stories=args.publish_stories, dry_run=False
         )
+        prev_entry = state.get(pid, {})
         state[pid] = {
+            **prev_entry,
             "slug": post["slug"],
             "scheduled_at_iso": post["scheduled_at_iso"],
             "status": "published",
@@ -457,7 +459,7 @@ def main() -> int:
         due_posts = []
         for p in manifest["posts"]:
             pid = p["post_id"]
-            if state.get(pid, {}).get("status") == "published":
+            if state.get(pid, {}).get("status") in ("published", "paused", "skipped"):
                 continue
             sched_dt = datetime.fromisoformat(p["scheduled_at_iso"]).astimezone(timezone.utc)
             if now_utc >= sched_dt:
@@ -466,7 +468,7 @@ def main() -> int:
         if not due_posts:
             print(f"✓ No posts due right now ({now_utc.strftime('%Y-%m-%d %H:%M UTC')}). Next pending post:")
             for p in manifest["posts"]:
-                if state.get(p["post_id"], {}).get("status") != "published":
+                if state.get(p["post_id"], {}).get("status") not in ("published", "paused", "skipped"):
                     print(f"  -> {p['post_id']} ({p['date_display']} • {p['time_pst']}): {p['title']}")
                     break
             return 0
@@ -488,7 +490,9 @@ def main() -> int:
                 post, uid, token, api_base=api_base, publish_stories=args.publish_stories, dry_run=args.dry_run
             )
             if not args.dry_run:
+                prev_entry = state.get(pid, {})
                 state[pid] = {
+                    **prev_entry,
                     "slug": post["slug"],
                     "scheduled_at_iso": post["scheduled_at_iso"],
                     "status": "published",

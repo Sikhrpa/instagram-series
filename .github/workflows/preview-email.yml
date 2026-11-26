@@ -1,0 +1,85 @@
+name: Send 2-Day Instagram Post Preview Email
+
+on:
+  schedule:
+    # Runs daily at 9:00 AM PST (17:00 UTC) / 10:00 AM PDT to email previews ~2 days before each post
+    - cron: "0 17 * * *"
+
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Action to run"
+        required: true
+        default: "test_post"
+        type: choice
+        options:
+          - check_due
+          - test_post
+          - dry_run
+      post_id:
+        description: "Post ID for test_post (e.g. post-01 or week-01)"
+        required: false
+        default: "post-01"
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-preview-email
+  cancel-in-progress: false
+
+jobs:
+  preview-email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Send 2-Day Advance Preview Email
+        env:
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_HOST: ${{ vars.SMTP_HOST || 'smtp.gmail.com' }}
+          SMTP_PORT: ${{ vars.SMTP_PORT || '465' }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          PREVIEW_TO_EMAIL: ${{ vars.PREVIEW_TO_EMAIL || 'tarun@sikhrpa.org' }}
+        run: |
+          set -euo pipefail
+          MODE="${{ github.event_name == 'schedule' && 'check_due' || inputs.mode }}"
+          POST_ID="${{ inputs.post_id }}"
+
+          case "$MODE" in
+            check_due)
+              python3 scripts/send_preview_email.py --check-due --window-hours 60
+              ;;
+            test_post)
+              python3 scripts/send_preview_email.py --post "${POST_ID:-post-01}"
+              ;;
+            dry_run)
+              python3 scripts/send_preview_email.py --check-due --window-hours 168 --dry-run
+              ;;
+            *)
+              echo "Unknown mode: $MODE"
+              exit 1
+              ;;
+          esac
+
+      - name: Commit updated publish_state.json
+        run: |
+          if git diff --quiet publish_state.json; then
+            echo "No publish_state.json changes to commit."
+            exit 0
+          fi
+          git config user.name "sikhrpa-autoposter[bot]"
+          git config user.email "president@sikhrpa.org"
+          git add publish_state.json
+          git commit -m "Record preview_sent_at in publish_state.json"
+          git push origin HEAD:main
