@@ -2,6 +2,25 @@
   "raw_base_url": "https://raw.githubusercontent.com/Sikhrpa/instagram-series/main",
   "posts": [
     {
+      "post_number": 901,
+      "post_id": "bf-osight-se",
+      "slug": "bf-test-osight-se",
+      "week": 0,
+      "title": "Black Friday Deal: OSIGHT SE Enclosed Reflex Sight (RMSc Footprint)",
+      "date_display": "Wed, Nov 25, 2026 (Live Workflow Test)",
+      "time_pst": "10:40 PM PST",
+      "scheduled_at_iso": "2026-11-25T22:40:00-08:00",
+      "format": "Instagram Story (9:16)",
+      "link_in_bio": "https://sikhrpa.org/black-friday-2026",
+      "caption_full": "#ad • As an Amazon Associate, SikhRPA earns from qualifying purchases.\n\nBlack Friday Optic Deal: OSIGHT SE Enclosed Reflex Sight (RMSc Footprint) is 20% off on Amazon.\n• 2 MOA dot + 32 MOA circle multi-reticle\n• Fully enclosed IPX7 7075-T6 emitter\n• Side-loading CR1620 battery (no re-zeroing)\n• Parallax-free aspherical glass + motion activation\n\nDirect Amazon link: https://www.amazon.com/dp/B0FV8PM98L?tag=sikhrpa01-20\nFull 2026 Black Friday list: https://sikhrpa.org/black-friday-2026",
+      "story_prompt": "Standalone 9:16 Black Friday Deal Story published via GitHub Actions.",
+      "publish_type": "story",
+      "media_urls": [
+        "https://raw.githubusercontent.com/Sikhrpa/instagram-series/main/media/jpg/bf-test-osight-se/story-01-osight-se.jpg"
+      ],
+      "story_url": null
+    },
+    {
       "post_number": 1,
       "post_id": "post-01",
       "slug": "post-01-meet-sikhrpa-givingtuesday",

@@ -332,6 +332,22 @@ def publish_post(
         wait_for_container(sid, token, api_base=api_base, is_video=False)
         media_id = publish_container(ig_user_id, sid, token, api_base=api_base)
         print(f"  ✓ Published Photo Post! IG Media ID: {media_id}")
+
+    elif ptype == "story":
+        story_img_url = post["media_urls"][0]
+        print(f"  Creating standalone 9:16 STORIES container ({story_img_url.split('/')[-1]})...")
+        st_res = api_request(
+            "POST",
+            f"{ig_user_id}/media",
+            token,
+            {"media_type": "STORIES", "image_url": story_img_url},
+            api_base=api_base,
+        )
+        stid = str(st_res["id"])
+        wait_for_container(stid, token, api_base=api_base, is_video=False)
+        media_id = publish_container(ig_user_id, stid, token, api_base=api_base)
+        print(f"  ✓ Published Standalone Story! IG Story ID: {media_id}")
+        return (media_id, media_id)
     else:
         raise ValueError(f"Unsupported publish_type: {ptype}")
 
