@@ -29,9 +29,11 @@ sys.path.insert(0, str(SCRIPT_DIR))
 from content_posts_1_to_6 import get_posts_1_to_6  # noqa: E402
 from content_posts_7_to_12 import get_posts_7_to_12  # noqa: E402
 from styles import ROOT_DIR  # noqa: E402
+from weekly_2027_data import WEEKLY_2027_POSTS  # noqa: E402
 
 RAW_BASE_URL = "https://raw.githubusercontent.com/Sikhrpa/instagram-series/main"
 POSTS_DIR = ROOT_DIR / "posts"
+WEEKLY_2027_DIR = ROOT_DIR / "weekly-2027"
 MEDIA_JPG_DIR = ROOT_DIR / "media" / "jpg"
 MEDIA_REELS_DIR = ROOT_DIR / "media" / "reels"
 MANIFEST_PATH = ROOT_DIR / "publish_manifest.json"
@@ -39,11 +41,14 @@ STATE_PATH = ROOT_DIR / "publish_state.json"
 
 TIME_MAP = {
     "10:00 AM PST": "10:00:00-08:00",
+    "10:00 AM PDT": "10:00:00-07:00",
     "10:30 AM PST": "10:30:00-08:00",
     "11:00 AM PST": "11:00:00-08:00",
     "12:00 PM PST": "12:00:00-08:00",
+    "12:00 PM PDT": "12:00:00-07:00",
     "4:00 PM PST": "16:00:00-08:00",
     "5:30 PM PST": "17:30:00-08:00",
+    "5:30 PM PDT": "17:30:00-07:00",
     "6:00 PM PST": "18:00:00-08:00",
 }
 
@@ -169,8 +174,11 @@ def build_all() -> None:
                 if not s["filename"].startswith("reel-00-")
             ]
             out_mp4 = MEDIA_REELS_DIR / f"{slug}.mp4"
-            print(f"  Compiling Reel MP4: {out_mp4.relative_to(ROOT_DIR)} ({len(story_frames)} frames)...")
-            compile_reel_mp4(story_frames, out_mp4)
+            if not out_mp4.exists():
+                print(f"  Compiling Reel MP4: {out_mp4.relative_to(ROOT_DIR)} ({len(story_frames)} frames)...")
+                compile_reel_mp4(story_frames, out_mp4)
+            else:
+                print(f"  Reusing existing Reel MP4: {out_mp4.relative_to(ROOT_DIR)}")
             reel_count += 1
 
             cover_jpg = jpg_map["reel-00-cover.jpg" if "reel-00-cover.jpg" in jpg_map else "reel-00-cover.png"]
@@ -215,6 +223,76 @@ def build_all() -> None:
             new_state[post_key] = existing_state[post_key]
         else:
             new_state[post_key] = {
+                "slug": slug,
+                "scheduled_at_iso": scheduled_iso,
+                "status": "pending",
+                "published_at": None,
+                "ig_media_id": None,
+                "story_media_id": None,
+            }
+
+    # 3. Also include all 52 weekly 2027 posts + companion 9:16 Stories
+    captions_2027: dict[str, dict] = {}
+    csv_2027 = ROOT_DIR / "schedule-2027.csv"
+    if csv_2027.exists():
+        with csv_2027.open(encoding="utf-8", newline="") as fh:
+            for row in csv.DictReader(fh):
+                captions_2027[Path(row["Folder"]).name] = row
+
+    for wk in WEEKLY_2027_POSTS:
+        slug = wk["slug"]
+        w_num = wk["week"]
+        post_id = f"week-{w_num:02d}"
+        src_dir = WEEKLY_2027_DIR / slug
+        dst_dir = MEDIA_JPG_DIR / "weekly-2027" / slug
+
+        post_png = src_dir / "post.png"
+        story_png = src_dir / "story.png"
+        if not post_png.exists():
+            continue
+
+        post_jpg = dst_dir / "post.jpg"
+        convert_png_to_jpg(post_png, post_jpg)
+        jpg_count += 1
+
+        story_url = None
+        if story_png.exists():
+            story_jpg = dst_dir / "story.jpg"
+            convert_png_to_jpg(story_png, story_jpg)
+            jpg_count += 1
+            story_url = f"{RAW_BASE_URL}/{story_jpg.relative_to(ROOT_DIR).as_posix()}"
+
+        row_2027 = captions_2027.get(slug, {})
+        caption_full = (row_2027.get("Caption + Hashtags") or f"{wk['title']}\n\n{wk['summary']}\n\n{wk['hashtags']}").strip()
+        assert len(caption_full) <= 2200, f"{post_id} caption exceeds 2,200 chars ({len(caption_full)})"
+
+        iso_time = TIME_MAP.get(wk["time_tz"], "12:00:00-08:00")
+        scheduled_iso = f"{wk['date_iso']}T{iso_time}"
+
+        manifest_posts.append(
+            {
+                "post_number": 100 + w_num,
+                "post_id": post_id,
+                "slug": slug,
+                "week": w_num,
+                "title": wk["title"],
+                "date_display": wk["date_display"],
+                "time_pst": wk["time_tz"],
+                "scheduled_at_iso": scheduled_iso,
+                "format": "Single Photo (4:5) + Story (9:16)",
+                "link_in_bio": wk["url"],
+                "caption_full": caption_full,
+                "story_prompt": row_2027.get("Story Prompt", wk.get("story_prompt_box", "")),
+                "publish_type": "single",
+                "media_urls": [f"{RAW_BASE_URL}/{post_jpg.relative_to(ROOT_DIR).as_posix()}"],
+                "story_url": story_url,
+            }
+        )
+
+        if post_id in existing_state:
+            new_state[post_id] = existing_state[post_id]
+        else:
+            new_state[post_id] = {
                 "slug": slug,
                 "scheduled_at_iso": scheduled_iso,
                 "status": "pending",

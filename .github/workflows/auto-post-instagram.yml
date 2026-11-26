@@ -2,9 +2,9 @@ name: Auto-Post SikhRPA Instagram Series
 
 on:
   schedule:
-    # Runs every 30 minutes during December (UTC) to catch every Tue / Thu / Sat PST slot reliably
+    # Runs every 30 minutes year-round (UTC) to catch Dec 2026 launch + all 52 weeks of 2027
     # Exits in ~2 seconds when no post is due, and never double-posts (tracked via publish_state.json)
-    - cron: "*/30 * * 12 *"
+    - cron: "*/30 * * * *"
 
   workflow_dispatch:
     inputs:
@@ -20,12 +20,12 @@ on:
           - verify_token
           - status
       post_number:
-        description: "Post number (01-12) — required for single_post, optional for dry_run"
+        description: "Post ID (e.g. 01, post-01, or week-01) — required for single_post, optional for dry_run"
         required: false
         default: ""
         type: string
       publish_stories:
-        description: "Also auto-publish companion 9:16 Stories (Posts 06, 11, 12)"
+        description: "Also auto-publish companion 9:16 Stories"
         required: false
         default: true
         type: boolean
@@ -60,7 +60,7 @@ jobs:
         env:
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-          IG_API_BASE: ${{ vars.IG_API_BASE || 'https://graph.facebook.com' }}
+          IG_API_BASE: ${{ vars.IG_API_BASE || '' }}
           IG_API_VERSION: ${{ vars.IG_API_VERSION || 'v21.0' }}
         run: |
           set -euo pipefail

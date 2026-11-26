@@ -94,5 +94,421 @@
     "published_at": null,
     "ig_media_id": null,
     "story_media_id": null
+  },
+  "week-01": {
+    "slug": "week-01-new-year-safe-storage-audit",
+    "scheduled_at_iso": "2027-01-05T12:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-02": {
+    "slug": "week-02-guru-gobind-singh-gurpurab-maghi",
+    "scheduled_at_iso": "2027-01-14T10:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-03": {
+    "slug": "week-03-2027-ca-legal-watch-check",
+    "scheduled_at_iso": "2027-01-19T12:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-04": {
+    "slug": "week-04-mastering-70-30-pistol-grip",
+    "scheduled_at_iso": "2027-01-26T17:30:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-05": {
+    "slug": "week-05-ffl03-coe-california-overview",
+    "scheduled_at_iso": "2027-02-02T12:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-06": {
+    "slug": "week-06-spot-counterfeit-tourniquets",
+    "scheduled_at_iso": "2027-02-09T17:30:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-07": {
+    "slug": "week-07-bilingual-safety-myth-busters",
+    "scheduled_at_iso": "2027-02-16T12:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-08": {
+    "slug": "week-08-ca-handgun-size-ccw-ergonomics",
+    "scheduled_at_iso": "2027-02-23T17:30:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-09": {
+    "slug": "week-09-fsc-exam-study-sprint",
+    "scheduled_at_iso": "2027-03-02T12:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-10": {
+    "slug": "week-10-spring-gurdwara-workshop-booking",
+    "scheduled_at_iso": "2027-03-09T17:30:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-11": {
+    "slug": "week-11-sikh-new-year-chet-nanakshahi-559",
+    "scheduled_at_iso": "2027-03-14T10:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-12": {
+    "slug": "week-12-hola-mohalla-2027",
+    "scheduled_at_iso": "2027-03-23T10:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-13": {
+    "slug": "week-13-eye-ear-lead-range-protection",
+    "scheduled_at_iso": "2027-03-30T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-14": {
+    "slug": "week-14-sikh-heritage-month-kickoff",
+    "scheduled_at_iso": "2027-04-06T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-15": {
+    "slug": "week-15-vaisakhi-khalsa-sajna-diwas-2027",
+    "scheduled_at_iso": "2027-04-14T10:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-16": {
+    "slug": "week-16-ca-vehicle-transport-pc25610",
+    "scheduled_at_iso": "2027-04-20T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-17": {
+    "slug": "week-17-casing-and-wall-dry-fire-drills",
+    "scheduled_at_iso": "2027-04-27T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-18": {
+    "slug": "week-18-national-stop-the-bleed-month",
+    "scheduled_at_iso": "2027-05-04T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-19": {
+    "slug": "week-19-welcoming-women-and-first-timers",
+    "scheduled_at_iso": "2027-05-11T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-20": {
+    "slug": "week-20-pistol-red-dot-zero-15-vs-25-yd",
+    "scheduled_at_iso": "2027-05-18T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-21": {
+    "slug": "week-21-summer-break-child-safety-check",
+    "scheduled_at_iso": "2027-05-25T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-22": {
+    "slug": "week-22-california-outdoor-blm-fire-safety",
+    "scheduled_at_iso": "2027-06-01T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-23": {
+    "slug": "week-23-hypothermia-lethal-triad-summer",
+    "scheduled_at_iso": "2027-06-08T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-24": {
+    "slug": "week-24-guru-arjan-dev-shaheedi-guru-hargobind-parkash",
+    "scheduled_at_iso": "2027-06-16T10:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-25": {
+    "slug": "week-25-green-card-permanent-resident-faq",
+    "scheduled_at_iso": "2027-06-22T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-26": {
+    "slug": "week-26-midyear-501c3-impact-checkin",
+    "scheduled_at_iso": "2027-06-29T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-27": {
+    "slug": "week-27-cold-range-vs-hot-range-commands",
+    "scheduled_at_iso": "2027-07-06T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-28": {
+    "slug": "week-28-trigger-reset-and-slack-cadence",
+    "scheduled_at_iso": "2027-07-13T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-29": {
+    "slug": "week-29-gurdwara-bleeding-control-cabinets",
+    "scheduled_at_iso": "2027-07-20T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-30": {
+    "slug": "week-30-address-mismatch-dros-avoidance",
+    "scheduled_at_iso": "2027-07-27T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-31": {
+    "slug": "week-31-50-200-vs-100-yard-carbine-zero",
+    "scheduled_at_iso": "2027-08-03T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-32": {
+    "slug": "week-32-back-to-school-family-safety-talk",
+    "scheduled_at_iso": "2027-08-10T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-33": {
+    "slug": "week-33-remote-range-gps-911-card",
+    "scheduled_at_iso": "2027-08-17T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-34": {
+    "slug": "week-34-ball-and-dummy-diagnostic-drill",
+    "scheduled_at_iso": "2027-08-24T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-35": {
+    "slug": "week-35-first-parkash-guru-granth-sahib-ji",
+    "scheduled_at_iso": "2027-09-01T10:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-36": {
+    "slug": "week-36-brandishing-deescalation-pc417",
+    "scheduled_at_iso": "2027-09-07T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-37": {
+    "slug": "week-37-fall-gurdwara-workshops-open",
+    "scheduled_at_iso": "2027-09-14T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-38": {
+    "slug": "week-38-firearm-cleaning-safety-protocol",
+    "scheduled_at_iso": "2027-09-21T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-39": {
+    "slug": "week-39-safe-handling-demo-walkthrough",
+    "scheduled_at_iso": "2027-09-28T12:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-40": {
+    "slug": "week-40-vented-chest-seals-check-the-back",
+    "scheduled_at_iso": "2027-10-05T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-41": {
+    "slug": "week-41-guru-ram-das-parkash-gurgaddi-diwas",
+    "scheduled_at_iso": "2027-10-12T10:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-42": {
+    "slug": "week-42-diagnosing-all-8-target-sectors",
+    "scheduled_at_iso": "2027-10-19T17:30:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-43": {
+    "slug": "week-43-bandi-chhor-diwas-2027",
+    "scheduled_at_iso": "2027-10-29T10:00:00-07:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-44": {
+    "slug": "week-44-daylight-saving-battery-lock-check",
+    "scheduled_at_iso": "2027-11-02T12:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-45": {
+    "slug": "week-45-real-id-holiday-travel-and-compliance",
+    "scheduled_at_iso": "2027-11-09T17:30:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-46": {
+    "slug": "week-46-guru-nanak-gurpurab-2027",
+    "scheduled_at_iso": "2027-11-14T10:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-47": {
+    "slug": "week-47-thanksgiving-guest-storage-audit",
+    "scheduled_at_iso": "2027-11-23T12:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-48": {
+    "slug": "week-48-givingtuesday-2027-public-safety",
+    "scheduled_at_iso": "2027-11-30T11:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-49": {
+    "slug": "week-49-optics-turret-golden-rule-refresher",
+    "scheduled_at_iso": "2027-12-07T17:30:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-50": {
+    "slug": "week-50-guru-tegh-bahadur-shaheedi-diwas-2027",
+    "scheduled_at_iso": "2027-12-14T10:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-51": {
+    "slug": "week-51-shaheedi-week-chaar-sahibzaade-2027",
+    "scheduled_at_iso": "2027-12-21T12:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
+  },
+  "week-52": {
+    "slug": "week-52-year-end-2027-501c3-giving-appeal",
+    "scheduled_at_iso": "2027-12-28T11:00:00-08:00",
+    "status": "pending",
+    "published_at": null,
+    "ig_media_id": null,
+    "story_media_id": null
   }
 }
