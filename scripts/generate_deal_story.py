@@ -114,6 +114,9 @@ def build_product_story_body(
     title: str,
     subtitle: str,
     discount: str,
+    price: str,
+    msrp: str,
+    price_note: str,
     image_data_uri: str,
     image_credit: str,
     specs: list[tuple[str, str]],
@@ -152,6 +155,29 @@ def build_product_story_body(
         else ""
     )
 
+    price_html = ""
+    if price:
+        msrp_span = (
+            f'<span style="font-size:24px;font-weight:700;color:#94a3b8;text-decoration:line-through;margin-left:10px;">'
+            f"{html.escape(msrp)}</span>"
+            if msrp
+            else ""
+        )
+        price_html = f"""
+        <div style="position:absolute;bottom:16px;left:18px;background:#0f172a;color:#ffffff;
+                    padding:10px 22px;border-radius:18px;border:2px solid #fbbf24;
+                    box-shadow:0 10px 26px rgba(15,23,42,0.35);display:flex;align-items:baseline;">
+          <span style="font-size:38px;font-weight:900;letter-spacing:-0.02em;color:#fbbf24;">
+            {html.escape(price)}
+          </span>
+          {msrp_span}
+        </div>
+        """
+
+    disclosure_text = DISCLOSURE_SLIDE
+    if price and price_note:
+        disclosure_text = f"{price_note} • {DISCLOSURE_SLIDE}"
+
     return f"""
     <div style="display:flex;flex-direction:column;gap:22px;width:100%;">
       <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;">
@@ -163,7 +189,7 @@ def build_product_story_body(
 
       <div style="position:relative;width:100%;height:560px;background:#ffffff;border-radius:28px;
                   border:3px solid rgba(251,191,36,0.75);box-shadow:0 22px 48px rgba(0,0,0,0.45);
-                  display:flex;align-items:center;justify-content:center;padding:34px 44px;overflow:hidden;">
+                  display:flex;align-items:center;justify-content:center;padding:34px 44px 56px;overflow:hidden;">
         <img src="{image_data_uri}" alt="{html.escape(title)}"
              style="max-width:100%;max-height:100%;object-fit:contain;display:block;"/>
         <div style="position:absolute;top:18px;right:20px;background:#dc2626;color:#ffffff;
@@ -172,6 +198,7 @@ def build_product_story_body(
                     box-shadow:0 8px 20px rgba(220,38,38,0.45);">
           {html.escape(discount)}
         </div>
+        {price_html}
         {credit_html}
       </div>
 
@@ -185,7 +212,7 @@ def build_product_story_body(
       </div>
 
       <div style="font-size:14px;line-height:1.4;color:#94a3b8;text-align:center;max-width:900px;margin:0 auto;">
-        {DISCLOSURE_SLIDE}
+        {html.escape(disclosure_text)}
       </div>
     </div>
     """
@@ -207,6 +234,9 @@ def render_deal_story(args: argparse.Namespace) -> int:
         title=args.title,
         subtitle=args.subtitle,
         discount=args.discount,
+        price=args.price,
+        msrp=args.msrp,
+        price_note=args.price_note,
         image_data_uri=image_data_uri,
         image_credit=args.image_credit,
         specs=specs,
@@ -226,7 +256,7 @@ def render_deal_story(args: argparse.Namespace) -> int:
             {
                 "filename": args.filename,
                 "body_html": " ".join(
-                    [args.eyebrow, args.title, args.subtitle, args.discount, args.cta_label]
+                    [args.eyebrow, args.title, args.subtitle, args.discount, args.price, args.msrp, args.cta_label]
                     + [f"{k} {v}" for k, v in specs]
                 ),
             }
@@ -303,7 +333,14 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--eyebrow", required=True, help="Top category/deal eyebrow text")
     ap.add_argument("--title", required=True, help="Primary product name")
     ap.add_argument("--subtitle", default="", help="Gold-accented product subtitle")
-    ap.add_argument("--discount", required=True, help="Discount badge text (e.g. '20% OFF' — no static $ prices)")
+    ap.add_argument("--discount", required=True, help="Discount badge text (e.g. '20% OFF')")
+    ap.add_argument("--price", default="", help="Optional sale price badge (e.g. '$159.99')")
+    ap.add_argument("--msrp", default="", help="Optional original MSRP shown with strikethrough (e.g. '$199.99')")
+    ap.add_argument(
+        "--price-note",
+        default="Price as of Nov 25, 2026 (subject to change)",
+        help="Timestamp disclaimer appended when --price is displayed",
+    )
     ap.add_argument("--image", required=True, help="Local path or official manufacturer HTTPS image URL")
     ap.add_argument("--image-credit", default="", help="Manufacturer image credit (e.g. 'Image: OSIGHT / Olight')")
     ap.add_argument("--spec", action="append", default=[], help="Spec item as 'LABEL|Detail' (up to 4)")
